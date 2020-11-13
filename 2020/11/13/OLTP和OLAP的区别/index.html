@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="OLTP和OLAP的区别"><meta name="keywords" content="数据库区别"><meta name="author" content="Frederic Niu"><meta name="copyright" content="Frederic Niu"><title>OLTP和OLAP的区别 | FredericNiu的博客</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: 'ca-pub-3335500621858538',
+  enable_page_level_ads: 'true'
+});
+</script><link rel="dns-prefetch" href="https://hm.baidu.com"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?32f39e65a8fe9d620c2fd1df560346dc";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  hexoVersion: '5.2.0'
+} </script><meta name="generator" content="Hexo 5.2.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://s3.ax1x.com/2020/11/12/DSEbSU.jpg"></div><div class="author-info__name text-center">Frederic Niu</div><div class="author-info__description text-center">电子科技大学 | 大数据</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/niufuquan1">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">3</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">2</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">1</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://s3.ax1x.com/2020/11/13/DShlnI.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">FredericNiu的博客</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">主页</a><a class="site-page" href="/archives">博文</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">类别</a><a class="site-page" href="/gallery">相册</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">OLTP和OLAP的区别</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-11-13</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/2020/11/13/OLTP%E5%92%8COLAP%E7%9A%84%E5%8C%BA%E5%88%AB/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="2020/11/13/OLTP和OLAP的区别/"></span></a><div class="post-meta-wordcount"><span>Word count: </span><span class="word-count">350</span><span class="post-meta__separator">|</span><span>Reading time: 1 min</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>如今的数据处理大致可以分成两大类，分别是：</p>
+<blockquote>
+<p>1、联机事务处理 <strong>OLTP</strong> <em>On-Line Transaction Processing</em><br>2、联机分析处理 <strong>OLAP</strong> <em>On-Line Analytical Processing</em></p>
+</blockquote>
+<p>OLTP是传统的关系型数据库的主要应用，主要是基本的、日常的事务处理，例如银行交易。OLAP是数据仓库系统的主要应用，支持复杂的分析操作，侧重决策支持，并且提供直观易懂的查询结果。<br>二者的主要区别对比如下表所示。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>对比属性</strong></th>
+<th><strong>OLTP</strong></th>
+<th><strong>OLAP</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>读特性</strong></td>
+<td>每次只查询返回少量记录</td>
+<td>对大量记录进行汇总</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>写特性</strong></td>
+<td>随机、低延时写入用户输入</td>
+<td>批量导入</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>使用场景</strong></td>
+<td>用户，JavaEE项目</td>
+<td>数据分析师，为决策提供支持</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>数据表征</strong></td>
+<td>最新数据动态</td>
+<td>随时间变化的历史状态</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>数据规模</strong></td>
+<td>GB</td>
+<td>TB到PB</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>不同的数据处理是用于不同的业务场景来使用，传统的关系型数据库在设计表结构时，就会遵循数据范式要求，将大表拆分为小表进行处理。然而在数据仓库中，对数据表的设计遵循将小表合并成大表的原则，采用批处理的方式进行。</p>
+<p>这篇文章仅为了普及下这方面的知识，搞清楚两者的区别是核心。</p>
+<p><img src="/2020/11/13/OLTP%E5%92%8COLAP%E7%9A%84%E5%8C%BA%E5%88%AB/blog_footer.png" alt></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Frederic Niu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://fredericniu.cn/2020/11/13/OLTP和OLAP的区别/">https://fredericniu.cn/2020/11/13/OLTP和OLAP的区别/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8C%BA%E5%88%AB/">数据库区别</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="https://s3.ax1x.com/2020/11/12/DSEmzF.png"><div class="post-qr-code__desc">微信打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="https://s3.ax1x.com/2020/11/12/DSEeRU.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div></div><div class="addthis_inline_share_toolbox pull-right"></div><script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5fad546a8407f5df" async></script><nav id="pagination"><div class="next-post pull-right"><a href="/2020/11/13/%E3%80%90%E7%A7%91%E6%99%AE%E3%80%91%E8%81%8A%E4%B8%80%E8%81%8A%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/"><span>【科普】聊一聊大数据的那些事儿</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
+var disqus_config = function () {
+  this.page.url = 'https://fredericniu.cn/2020/11/13/OLTP%E5%92%8COLAP%E7%9A%84%E5%8C%BA%E5%88%AB/';
+  this.page.identifier = '2020/11/13/OLTP和OLAP的区别/';
+  this.page.title = 'OLTP和OLAP的区别';
+}
+var d = document, s = d.createElement('script');
+s.src = "https://" + 'fredericniu' +".disqus.com/embed.js";
+s.setAttribute('data-timestamp', '' + +new Date());
+(d.head || d.body).appendChild(s);</script><script id="dsq-count-scr" src="https://fredericniu.disqus.com/count.js" async></script></div></div><footer class="footer-bg" style="background-image: url(https://s3.ax1x.com/2020/11/13/DShlnI.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2020 By Frederic Niu</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="icp"><a><span>蜀ICP备2020031345</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>
