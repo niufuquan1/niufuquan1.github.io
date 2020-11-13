@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】基础算法——快速排序（一）</title>
+      <link href="2020/11/13/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+      <url>2020/11/13/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h1 id="【每日算法】基础算法——快速排序（一）"><a href="#【每日算法】基础算法——快速排序（一）" class="headerlink" title="【每日算法】基础算法——快速排序（一）"></a>【每日算法】基础算法——快速排序（一）</h1><p><strong>题目内容</strong><br>给定你一个长度为n的整数数列。<br>请你使用快速排序对这个数列按照从小到大进行排序。<br>并将排好序的数列按顺序输出。<br><strong>输入格式</strong><br>输入共两行，第一行包含整数 n。<br>第二行包含 n 个整数（所有整数均在1~109范围内），表示整个数列。<br><strong>输出格式</strong><br>输出共一行，包含 n 个整数，表示排好序的数列。<br><strong>数据范围</strong><br>1≤n≤100000<br><strong>输入样例：</strong><br>5<br>3 1 2 4 5<br><strong>输出样例：</strong><br>1 2 3 4 5</p><p><strong>题解</strong><br>快速排序的算法的核心思想是分治，主要的思路有一下几步：<br>1、确定分界点，有几种取法，可取左边界/右边界/中间/随机，假设分界点为x，数组为l-&gt;r。<br>2、<strong>调整区间，由于x的出现，将数组划分成了前后两个区间，做操作，使得前一个区间的数小于等于x，后一个区间的数大于等于x。（这里是重点！）</strong><br>3、递归处理左右两个区间进行排序<br>4、归并排序</p><p><strong>对于第二步的实现思路的进一步阐述</strong></p><ul><li>不优美的做法：额外开辟两个数组a、b，然后扫瞄整个区间，如果当前的数小于等于x，插入a中，否则插入到b中，最后把a放入q中，然后把b放入q中。</li><li>优美的做法：在数组的首尾各定义一个指针，分别为i，j。然后i往右边遍历，直到发现某个数大于x，则让i暂时停下，开始让j往左边遍历，直到j发现某个数小于x，然后交换两个数之后，重复上述做法，直到指针i、j相遇。这样做，保证了任何时候，i左边的数一定小于x，j右边的数一定大于x，因此当i、j相遇或少量穿过后，第二步要求的内容就实现了。</li></ul><p><strong>代码实现</strong></p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int N &#x3D; 1e6+10;</span><br><span class="line"></span><br><span class="line">int q[N];</span><br><span class="line"></span><br><span class="line">void quick_sort(int q[], int l, int r)</span><br><span class="line">&#123;</span><br><span class="line">    if (l &gt;&#x3D; r) return;</span><br><span class="line"></span><br><span class="line">    int i &#x3D; l - 1, j &#x3D; r + 1, x &#x3D; q[l + r &gt;&gt; 1];</span><br><span class="line">    while (i &lt; j)</span><br><span class="line">    &#123;</span><br><span class="line">        do i ++ ; while (q[i] &lt; x);</span><br><span class="line">        do j -- ; while (q[j] &gt; x);</span><br><span class="line">        if (i &lt; j) swap(q[i], q[j]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    quick_sort(q, l, j);</span><br><span class="line">    quick_sort(q, j + 1, r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;n);</span><br><span class="line"></span><br><span class="line">    for (int i &#x3D; 0; i &lt; n; i ++ ) scanf(&quot;%d&quot;, &amp;q[i]);</span><br><span class="line"></span><br><span class="line">    quick_sort(q, 0, n - 1);</span><br><span class="line"></span><br><span class="line">    for (int i &#x3D; 0; i &lt; n; i ++ ) printf(&quot;%d &quot;, q[i]);</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>这里是<a href="https://www.acwing.com/problem/content/787/">原题链接</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 | 快速排序 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【数仓系列之一】什么是数仓</title>
       <link href="2020/11/13/%E3%80%90%E6%95%B0%E4%BB%93%E7%B3%BB%E5%88%97%E4%B9%8B%E4%B8%80%E3%80%91%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E4%BB%93/"/>
       <url>2020/11/13/%E3%80%90%E6%95%B0%E4%BB%93%E7%B3%BB%E5%88%97%E4%B9%8B%E4%B8%80%E3%80%91%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E4%BB%93/</url>
