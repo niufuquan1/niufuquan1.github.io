@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>记录在使用hexo中的各种坑（持续更新~）</title>
+      <link href="2020/11/15/%E8%AE%B0%E5%BD%95%E5%9C%A8%E4%BD%BF%E7%94%A8hexo%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E5%9D%91%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0-%EF%BC%89/"/>
+      <url>2020/11/15/%E8%AE%B0%E5%BD%95%E5%9C%A8%E4%BD%BF%E7%94%A8hexo%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E5%9D%91%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0-%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="有关“err-YAMLException-can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key”错误的原因"><a href="#有关“err-YAMLException-can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key”错误的原因" class="headerlink" title="有关“err: YAMLException: can not read a block mapping entry; a multiline key may not be an implicit key”错误的原因"></a>有关“err: YAMLException: can not read a block mapping entry; a multiline key may not be an implicit key”错误的原因</h2><p>1、在创建新的文章时，使用命令中，有关文章题目的字符串中不能有特殊字符，比如[]，不然会报错！因此，只能使用中文的【】。<br>2、在每一个.md配置文件中，key和value对必须中间有空格，不能是k:v，而必须是k: v，否侧会出现配置项解析错误的问题。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 折腾 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【数仓系列之二】总结搭建离线数仓中的技术细节</title>
+      <link href="2020/11/15/%E3%80%90%E6%95%B0%E4%BB%93%E7%B3%BB%E5%88%97%E4%B9%8B%E4%BA%8C%E3%80%91%E6%80%BB%E7%BB%93%E6%90%AD%E5%BB%BA%E7%A6%BB%E7%BA%BF%E6%95%B0%E4%BB%93%E4%B8%AD%E7%9A%84%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82/"/>
+      <url>2020/11/15/%E3%80%90%E6%95%B0%E4%BB%93%E7%B3%BB%E5%88%97%E4%B9%8B%E4%BA%8C%E3%80%91%E6%80%BB%E7%BB%93%E6%90%AD%E5%BB%BA%E7%A6%BB%E7%BA%BF%E6%95%B0%E4%BB%93%E4%B8%AD%E7%9A%84%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】基础算法——归并排序（三）</title>
       <link href="2020/11/15/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%EF%BC%88%E4%B8%89%EF%BC%89/"/>
       <url>2020/11/15/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%EF%BC%88%E4%B8%89%EF%BC%89/</url>
