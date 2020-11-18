@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>【每日算法】基础算法——高精度系列[高精度加法]（七）</title>
+      <link href="2020/11/18/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E9%AB%98%E7%B2%BE%E5%BA%A6%E7%B3%BB%E5%88%97-%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%8A%A0%E6%B3%95-%EF%BC%88%E4%B8%83%EF%BC%89/"/>
+      <url>2020/11/18/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E9%AB%98%E7%B2%BE%E5%BA%A6%E7%B3%BB%E5%88%97-%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%8A%A0%E6%B3%95-%EF%BC%88%E4%B8%83%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给定两个正整数，计算它们的和。</p><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a><strong>输入格式</strong></h2><p>共两行，每行包含一个整数。</p><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a><strong>输出格式</strong></h2><p>共一行，包含所求的和。</p><h2 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a><strong>数据范围</strong></h2><p>1≤整数长度≤100000</p><h2 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a><strong>输入样例</strong></h2><p>12<br>23</p><h2 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a><strong>输出样例</strong></h2><p>35</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>高精度的算法一般是指，其计算范围超过了计算机的存储类型，因此需要构造一个算法来实现高精度的数的基本运算。对于高精度加法，我们可以通过以下思路求解：<br>首先，将高精度数字序列化，存入数组内，这里为了进位方便，我们将从个位数字开始加入数组中。<br>然后，设置一个临时变量，然后按位相加，并根据相加后的大小判断是否需要进位，将最终的结果存入结果数组中<br>最后，将结果数组依次打印出来即可。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">add</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;A, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;B)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; C;</span><br><span class="line">    <span class="keyword">if</span>(A.size() &lt; B.size()) <span class="keyword">return</span> add(B,A);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> t = <span class="number">0</span>; <span class="comment">//进位</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;A.size();i++)&#123;</span><br><span class="line">        t+=A[i];</span><br><span class="line">        <span class="keyword">if</span>(i&lt;B.size()) t+=B[i];</span><br><span class="line">        C.push_back(t % <span class="number">10</span>);</span><br><span class="line">        t /= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(t) C.push_back(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> C;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> a, b;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; A,B;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; a &gt;&gt; b; <span class="comment">//a=&quot;123456&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = a.size()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--) A.push_back(a[i] - <span class="string">&#x27;0&#x27;</span>); <span class="comment">// A = [6,5,4,3,2,1]</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = b.size()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--) B.push_back(b[i] - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">auto</span> C = add(A,B); <span class="comment">//auto自动类型推导</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=C.size()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)<span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,C[i]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 高精度整数加法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【每日算法】基础算法——浮点数二分查找[数的三次方根]（六）</title>
+      <link href="2020/11/18/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E6%B5%AE%E7%82%B9%E6%95%B0%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE-%E6%95%B0%E7%9A%84%E4%B8%89%E6%AC%A1%E6%96%B9%E6%A0%B9-%EF%BC%88%E5%85%AD%EF%BC%89/"/>
+      <url>2020/11/18/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E6%B5%AE%E7%82%B9%E6%95%B0%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE-%E6%95%B0%E7%9A%84%E4%B8%89%E6%AC%A1%E6%96%B9%E6%A0%B9-%EF%BC%88%E5%85%AD%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给定一个浮点数n，求它的三次方根。</p><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a><strong>输入格式</strong></h2><p>共一行，包含一个浮点数n。</p><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a><strong>输出格式</strong></h2><p>共一行，包含一个浮点数，表示问题的解。<br>注意，结果保留6位小数。</p><h2 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a><strong>数据范围</strong></h2><p>−10000≤n≤10000</p><h2 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a><strong>输入样例</strong></h2><p>1000.00</p><h2 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a><strong>输出样例</strong></h2><p>10.000000</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>首先，浮点数的二分和整数二分很类似，核心也是针对区间的判断以及求分界点。<br>思考如下：<br>1、定义mid = (l+r)/2，区间范围是[l,r]。<br>2、思考mid^3和x的大小关系，若mid^3大，则说明x^(1/3)的值在左边，即区间更新应该是[l,mid]；若mid^3小，则说明x^(1/3)的值在右边，即区间更新应该是[mid,r]。<br>3、重复以上步骤，直到求出答案</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">double</span> x;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">double</span> l = <span class="number">-10000</span>, r = <span class="number">10000</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (r - l &gt; <span class="number">1e-8</span>)&#123;</span><br><span class="line">        <span class="keyword">double</span> mid = (l + r) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (mid * mid *mid &gt;= x) r= mid;</span><br><span class="line">        <span class="keyword">else</span> l = mid;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%lf\n&quot;</span>, l);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><a href="https://www.acwing.com/problem/content/793/">原题链接</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 | 浮点数二分查找 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】基础算法——整数二分查找[数的范围]（五）</title>
       <link href="2020/11/17/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E6%95%B4%E6%95%B0%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE-%E6%95%B0%E7%9A%84%E8%8C%83%E5%9B%B4-%EF%BC%88%E4%BA%94%EF%BC%89/"/>
       <url>2020/11/17/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E6%95%B4%E6%95%B0%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE-%E6%95%B0%E7%9A%84%E8%8C%83%E5%9B%B4-%EF%BC%88%E4%BA%94%EF%BC%89/</url>
@@ -17,6 +67,12 @@
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> 算法 | 整数二分查找 </tag>
+            
+        </tags>
       
     </entry>
     
