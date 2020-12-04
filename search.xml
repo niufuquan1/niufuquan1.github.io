@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>【每日算法】基础算法——模拟队列（二十四）</title>
+      <link href="2020/12/04/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E6%A8%A1%E6%8B%9F%E9%98%9F%E5%88%97%EF%BC%88%E4%BA%8C%E5%8D%81%E5%9B%9B%EF%BC%89/"/>
+      <url>2020/12/04/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E6%A8%A1%E6%8B%9F%E9%98%9F%E5%88%97%EF%BC%88%E4%BA%8C%E5%8D%81%E5%9B%9B%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>实现一个队列，队列初始为空，支持四种操作：</p><p>(1) “push x” – 向队尾插入一个数x；</p><p>(2) “pop” – 从队头弹出一个数；</p><p>(3) “empty” – 判断队列是否为空；</p><p>(4) “query” – 查询队头元素。</p><p>现在要对队列进行M个操作，其中的每个操作3和操作4都要输出相应的结果。</p><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a><strong>输入格式</strong></h2><p>第一行包含整数M，表示操作次数。</p><p>接下来M行，每行包含一个操作命令，操作命令为”push x”，”pop”，”empty”，”query”中的一种。</p><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a><strong>输出格式</strong></h2><p>对于每个”empty”和”query”操作都要输出一个查询结果，每个结果占一行。</p><p>其中，”empty”操作的查询结果为“YES”或“NO”，”query”操作的查询结果为一个整数，表示队头元素的值。</p><h2 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a><strong>数据范围</strong></h2><p>1≤M≤100000 ,<br>1≤x≤109,<br>所有操作保证合法。</p><h2 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a><strong>输入样例</strong></h2><p>10<br>push 6<br>empty<br>query<br>pop<br>empty<br>push 3<br>push 4<br>pop<br>query<br>push 6</p><h2 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a><strong>输出样例</strong></h2><p>NO<br>6<br>YES<br>4</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>队列和栈的最大区别在于，队列是先进先出，因此，队列需要维护队头和队尾。在代码中，使用hh和tt代表队头和队尾，从队头入，从队尾出。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">100010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> m;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> q[N],hh,tt = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; m;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (m -- )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> op;</span><br><span class="line">        <span class="keyword">int</span> x;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; op;</span><br><span class="line">        <span class="keyword">if</span> (op == <span class="string">&quot;push&quot;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">            q[ ++ tt] = x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="string">&quot;pop&quot;</span>) hh ++ ;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="string">&quot;empty&quot;</span>) <span class="built_in">cout</span> &lt;&lt; (hh &lt;= tt ? <span class="string">&quot;NO&quot;</span> : <span class="string">&quot;YES&quot;</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">cout</span> &lt;&lt; q[hh] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 队列 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【每日算法】基础算法——模拟栈（二十三）</title>
+      <link href="2020/12/04/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E6%A8%A1%E6%8B%9F%E6%A0%88%EF%BC%88%E4%BA%8C%E5%8D%81%E4%B8%89%EF%BC%89/"/>
+      <url>2020/12/04/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E6%A8%A1%E6%8B%9F%E6%A0%88%EF%BC%88%E4%BA%8C%E5%8D%81%E4%B8%89%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>实现一个栈，栈初始为空，支持四种操作：</p><p>(1) “push x” – 向栈顶插入一个数x；</p><p>(2) “pop” – 从栈顶弹出一个数；</p><p>(3) “empty” – 判断栈是否为空；</p><p>(4) “query” – 查询栈顶元素。</p><p>现在要对栈进行M个操作，其中的每个操作3和操作4都要输出相应的结果。</p><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a><strong>输入格式</strong></h2><p>第一行包含整数M，表示操作次数。</p><p>接下来M行，每行包含一个操作命令，操作命令为”push x”，”pop”，”empty”，”query”中的一种。</p><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a><strong>输出格式</strong></h2><p>对于每个”empty”和”query”操作都要输出一个查询结果，每个结果占一行。</p><p>其中，”empty”操作的查询结果为“YES”或“NO”，”query”操作的查询结果为一个整数，表示栈顶元素的值。</p><h2 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a><strong>数据范围</strong></h2><p>1≤M≤100000 ,<br>1≤x≤109<br>所有操作保证合法。</p><h2 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a><strong>输入样例</strong></h2><p>10<br>push 5<br>query<br>push 6<br>pop<br>query<br>pop<br>empty<br>push 4<br>query<br>empty</p><h2 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a><strong>输出样例</strong></h2><p>5<br>5<br>YES<br>4<br>NO</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>栈是一种先进后出的数据结构，根据其特性这里仍然采用数组的方式来模拟栈的实现，具体请看代码注释。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">100010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> m;</span><br><span class="line"><span class="keyword">int</span> stk[N], tt;<span class="comment">//stk为模拟栈的数组，tt为栈的最上方的元素编号</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; m;</span><br><span class="line">    <span class="keyword">while</span> (m -- )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> op;<span class="comment">//定义操作符</span></span><br><span class="line">        <span class="keyword">int</span> x;<span class="comment">//定义值</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; op;</span><br><span class="line">        <span class="keyword">if</span> (op == <span class="string">&quot;push&quot;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">            stk[ ++ tt] = x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="string">&quot;pop&quot;</span>) tt -- ;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="string">&quot;empty&quot;</span>) <span class="built_in">cout</span> &lt;&lt; (tt ? <span class="string">&quot;NO&quot;</span> : <span class="string">&quot;YES&quot;</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">cout</span> &lt;&lt; stk[tt] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 栈 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】基础算法——双链表（二十二）</title>
       <link href="2020/12/03/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%8F%8C%E9%93%BE%E8%A1%A8%EF%BC%88%E4%BA%8C%E5%8D%81%E4%BA%8C%EF%BC%89/"/>
       <url>2020/12/03/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%8F%8C%E9%93%BE%E8%A1%A8%EF%BC%88%E4%BA%8C%E5%8D%81%E4%BA%8C%EF%BC%89/</url>
