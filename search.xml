@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>【每日算法】基础算法——Trie树（二十八）</title>
+      <link href="2021/01/12/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94Trie%E6%A0%91%EF%BC%88%E4%BA%8C%E5%8D%81%E5%85%AB%EF%BC%89/"/>
+      <url>2021/01/12/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94Trie%E6%A0%91%EF%BC%88%E4%BA%8C%E5%8D%81%E5%85%AB%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>Trie字符串统计。<br>维护一个字符串集合，支持两种操作：</p><p>“I x”向集合中插入一个字符串x；<br>“Q x”询问一个字符串在集合中出现了多少次。<br>共有N个操作，输入的字符串总长度不超过 105，字符串仅包含小写英文字母。</p><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a><strong>输入格式</strong></h2><p>第一行包含整数N，表示操作数。</p><p>接下来N行，每行包含一个操作指令，指令为”I x”或”Q x”中的一种。</p><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a><strong>输出格式</strong></h2><p>对于每个询问指令”Q x”，都要输出一个整数作为结果，表示x在集合中出现的次数。</p><p>每个结果占一行。</p><h2 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a><strong>数据范围</strong></h2><p>1≤N≤2*10^4</p><h2 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a><strong>输入样例</strong></h2><p>5<br>I abc<br>Q abc<br>Q ab<br>I ab<br>Q ab</p><h2 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a><strong>输出样例</strong></h2><p>1<br>0<br>1</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p><img src="/2021/01/12/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94Trie%E6%A0%91%EF%BC%88%E4%BA%8C%E5%8D%81%E5%85%AB%EF%BC%89/Trie树.png" alt="Trie树解释"></p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">100010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> son[N][<span class="number">26</span>],cnt[N],idx;<span class="comment">//下标为0的点，既是根节点也是空节点</span></span><br><span class="line"><span class="keyword">char</span> str[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">char</span> str[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> p = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; str[i];i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> u = str[i] - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">        <span class="keyword">if</span> (!son[p][u]) son[p][u] = ++ idx;</span><br><span class="line">        p = son[p][u];</span><br><span class="line">    &#125;</span><br><span class="line">    cnt[p]++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="keyword">char</span> str[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> p = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; str[i];i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> u = str[i]-<span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">        <span class="keyword">if</span>(!son[p][u]) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        p = son[p][u];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cnt[p];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        <span class="keyword">char</span> op[<span class="number">2</span>];</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%s%s&quot;</span>,op,str);</span><br><span class="line">        <span class="keyword">if</span>(op[<span class="number">0</span>]==<span class="string">&#x27;I&#x27;</span>) insert(str);</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,query(str));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Trie树 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>房价项目开发记录</title>
+      <link href="2021/01/11/%E6%88%BF%E4%BB%B7%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/"/>
+      <url>2021/01/11/%E6%88%BF%E4%BB%B7%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="项目说明"><a href="#项目说明" class="headerlink" title="项目说明"></a>项目说明</h1><p>这是一个基于目前个人存在需求所进行开发的项目，前端可以暂时缓缓。首先要把最重要的每日的一手、二手房价数据获取到，同时针对房价进行定性、定量的分析，为今后个人买房提供数据支撑。该项目拟采用Github开源的房价爬取代码进行数据获取，同时结合个人需求进行略微的调整。另外，暂时仅支持目前与个人有关的城市的房价获取，其他地区暂且不计。项目拟开发3天为一个周期，重要功能需要在3天内一个版本迭代。拟采用以下的开发周期进行：<br>1、数据获取，转CSV或者存入数据库MySQL，以后有机会转Hive或者HBase。<br>2、数据可视化，采用SuperSet，按天、按地区进行房价的可视化<br>3、数据推送。每日固定时间，将房价监控报告发送至自己的邮箱<br>4、数据分析，以后加上大数据后开启。</p><h1 id="项目设计"><a href="#项目设计" class="headerlink" title="项目设计"></a>项目设计</h1><p>项目拟采用Python3.8构建，数据拟采用MySQLB存储，采用SuperSet进行可视化。</p><h1 id="项目实战"><a href="#项目实战" class="headerlink" title="项目实战"></a>项目实战</h1><h2 id="项目环境搭建"><a href="#项目环境搭建" class="headerlink" title="项目环境搭建"></a>项目环境搭建</h2><p>1、Python3.8的环境以及Pycharm环境默认已经搭建完毕，这里不再赘述<br>2、将MySQL安装到本机上。<br>3、打开Pycharm，并创建纯净Python项目，名称为HousePrice<br>4、到Github上找有关房价的爬虫代码并进行克隆，修改,最终采用<a href="https://github.com/jumper2014/lianjia-beike-spider">此仓库代码</a>作为基础代码进行数据获取。</p><h2 id="项目开发"><a href="#项目开发" class="headerlink" title="项目开发"></a>项目开发</h2><h3 id="数据获取部分（data-engine）"><a href="#数据获取部分（data-engine）" class="headerlink" title="数据获取部分（data_engine）"></a>数据获取部分（data_engine）</h3><h3 id="数据汇报部分（data-report）"><a href="#数据汇报部分（data-report）" class="headerlink" title="数据汇报部分（data_report）"></a>数据汇报部分（data_report）</h3><h3 id="数据可视化部分（data-visualization）"><a href="#数据可视化部分（data-visualization）" class="headerlink" title="数据可视化部分（data_visualization）"></a>数据可视化部分（data_visualization）</h3><h3 id="数据入库部分（data-to-db）"><a href="#数据入库部分（data-to-db）" class="headerlink" title="数据入库部分（data_to_db）"></a>数据入库部分（data_to_db）</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据开发与分析 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 开发记录 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】基础算法——KMP（二十七）</title>
       <link href="2020/12/24/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94KMP%EF%BC%88%E4%BA%8C%E5%8D%81%E4%B8%83%EF%BC%89/"/>
       <url>2020/12/24/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94KMP%EF%BC%88%E4%BA%8C%E5%8D%81%E4%B8%83%EF%BC%89/</url>
