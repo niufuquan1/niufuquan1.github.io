@@ -129,31 +129,6 @@
     
     
     <entry>
-      <title>房价项目开发记录</title>
-      <link href="2021/01/11/%E6%88%BF%E4%BB%B7%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/"/>
-      <url>2021/01/11/%E6%88%BF%E4%BB%B7%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/</url>
-      
-        <content type="html"><![CDATA[<h1 id="项目说明"><a href="#项目说明" class="headerlink" title="项目说明"></a>项目说明</h1><p>这是一个基于目前个人存在需求所进行开发的项目，前端可以暂时缓缓。首先要把最重要的每日的一手、二手房价数据获取到，同时针对房价进行定性、定量的分析，为今后个人买房提供数据支撑。该项目拟采用Github开源的房价爬取代码进行数据获取，同时结合个人需求进行略微的调整。另外，暂时仅支持目前与个人有关的城市的房价获取，其他地区暂且不计。项目拟开发3天为一个周期，重要功能需要在3天内一个版本迭代。拟采用以下的开发周期进行：<br>1、数据获取，转CSV或者存入数据库MySQL，以后有机会转Hive或者HBase。<br>2、数据可视化，采用SuperSet，按天、按地区进行房价的可视化<br>3、数据推送。每日固定时间，将房价监控报告发送至自己的邮箱<br>4、数据分析，以后加上大数据后开启。</p><h1 id="项目设计"><a href="#项目设计" class="headerlink" title="项目设计"></a>项目设计</h1><p>项目拟采用Python3.8构建，数据拟采用MySQLB存储，采用SuperSet进行可视化。</p><h1 id="项目实战"><a href="#项目实战" class="headerlink" title="项目实战"></a>项目实战</h1><h2 id="项目环境搭建"><a href="#项目环境搭建" class="headerlink" title="项目环境搭建"></a>项目环境搭建</h2><p>1、Python3.8的环境以及Pycharm环境默认已经搭建完毕，这里不再赘述<br>2、将MySQL安装到本机上。<br>3、打开Pycharm，并创建纯净Python项目，名称为HousePrice<br>4、到Github上找有关房价的爬虫代码并进行克隆，修改,最终采用<a href="https://github.com/jumper2014/lianjia-beike-spider">此仓库代码</a>作为基础代码进行数据获取。</p><h2 id="项目开发"><a href="#项目开发" class="headerlink" title="项目开发"></a>项目开发</h2><h3 id="数据获取部分（data-engine）"><a href="#数据获取部分（data-engine）" class="headerlink" title="数据获取部分（data_engine）"></a>数据获取部分（data_engine）</h3><h3 id="数据汇报部分（data-report）"><a href="#数据汇报部分（data-report）" class="headerlink" title="数据汇报部分（data_report）"></a>数据汇报部分（data_report）</h3><h3 id="数据可视化部分（data-visualization）"><a href="#数据可视化部分（data-visualization）" class="headerlink" title="数据可视化部分（data_visualization）"></a>数据可视化部分（data_visualization）</h3><h3 id="数据入库部分（data-to-db）"><a href="#数据入库部分（data-to-db）" class="headerlink" title="数据入库部分（data_to_db）"></a>数据入库部分（data_to_db）</h3>]]></content>
-      
-      
-      <categories>
-          
-          <category> 数据开发与分析 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 开发记录 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>【每日算法】基础算法——KMP（二十七）</title>
       <link href="2020/12/24/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94KMP%EF%BC%88%E4%BA%8C%E5%8D%81%E4%B8%83%EF%BC%89/"/>
       <url>2020/12/24/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94KMP%EF%BC%88%E4%BA%8C%E5%8D%81%E4%B8%83%EF%BC%89/</url>
