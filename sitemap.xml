@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.fredericniu.cn/2021/01/26/%E6%95%B0%E5%AD%A6%E6%80%9D%E7%BB%B4%EF%BC%88%E9%83%91%E4%B9%90%E9%9A%BD%EF%BC%89%E7%94%B5%E5%AD%90%E4%B9%A6%E9%93%BE%E6%8E%A5/</loc>
+    
+    <lastmod>2021-01-26</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.fredericniu.cn/2021/01/25/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94Dijkstra%E6%B1%82%E6%9C%80%E7%9F%AD%E8%B7%AF1%EF%BC%88%E5%9B%9B%E5%8D%81%E5%9B%9B%EF%BC%89/</loc>
     
     <lastmod>2021-01-26</lastmod>
@@ -724,6 +731,20 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>https://www.fredericniu.cn/tags/%E7%94%B5%E5%AD%90%E4%B9%A6%E8%B5%84%E6%BA%90/</loc>
+    <lastmod>2021-01-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.fredericniu.cn/tags/kindle/</loc>
+    <lastmod>2021-01-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   
   <url>
@@ -756,6 +777,13 @@
   
   <url>
     <loc>https://www.fredericniu.cn/categories/%E6%8A%98%E8%85%BE/</loc>
+    <lastmod>2021-01-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.fredericniu.cn/categories/%E7%94%B5%E5%AD%90%E4%B9%A6/</loc>
     <lastmod>2021-01-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
