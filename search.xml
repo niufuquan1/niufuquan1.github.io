@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>【每日算法】基础算法——SPFA求最短路（四十七）</title>
+      <link href="2021/01/27/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94SPFA%E6%B1%82%E6%9C%80%E7%9F%AD%E8%B7%AF%EF%BC%88%E5%9B%9B%E5%8D%81%E4%B8%83%EF%BC%89/"/>
+      <url>2021/01/27/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94SPFA%E6%B1%82%E6%9C%80%E7%9F%AD%E8%B7%AF%EF%BC%88%E5%9B%9B%E5%8D%81%E4%B8%83%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给定一个n个点m条边的有向图，图中可能存在重边和自环， 边权可能为负数。</p><p>请你求出1号点到n号点的最短距离，如果无法从1号点走到n号点，则输出impossible。</p><p>数据保证不存在负权回路。</p><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a><strong>输入格式</strong></h2><p>第一行包含整数n和m。</p><p>接下来m行每行包含三个整数x，y，z，表示存在一条从点x到点y的有向边，边长为z。</p><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a><strong>输出格式</strong></h2><p>输出一个整数，表示1号点到n号点的最短距离。</p><p>如果路径不存在，则输出”impossible”。</p><h2 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a><strong>数据范围</strong></h2><p>1≤n,m≤10^5 ,<br>图中涉及边长绝对值均不超过10000。</p><h2 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a><strong>输入样例</strong></h2><p>3 3<br>1 2 5<br>2 3 -3<br>1 3 4</p><h2 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a><strong>输出样例</strong></h2><p>2</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> SPFA </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【每日算法】基础算法——求有边数限制的最短路（四十六）</title>
+      <link href="2021/01/27/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E6%B1%82%E6%9C%89%E8%BE%B9%E6%95%B0%E9%99%90%E5%88%B6%E7%9A%84%E6%9C%80%E7%9F%AD%E8%B7%AF%EF%BC%88%E5%9B%9B%E5%8D%81%E5%85%AD%EF%BC%89/"/>
+      <url>2021/01/27/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E6%B1%82%E6%9C%89%E8%BE%B9%E6%95%B0%E9%99%90%E5%88%B6%E7%9A%84%E6%9C%80%E7%9F%AD%E8%B7%AF%EF%BC%88%E5%9B%9B%E5%8D%81%E5%85%AD%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给定一个n个点m条边的有向图，图中可能存在重边和自环， 边权可能为负数。</p><p>请你求出从1号点到n号点的最多经过k条边的最短距离，如果无法从1号点走到n号点，输出impossible。</p><p>注意：图中可能 存在负权回路 。</p><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a><strong>输入格式</strong></h2><p>第一行包含三个整数n，m，k。</p><p>接下来m行，每行包含三个整数x，y，z，表示存在一条从点x到点y的有向边，边长为z。</p><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a><strong>输出格式</strong></h2><p>输出一个整数，表示从1号点到n号点的最多经过k条边的最短距离。</p><p>如果不存在满足条件的路径，则输出“impossible”。</p><h2 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a><strong>数据范围</strong></h2><p>1≤n,k≤500 ,<br>1≤m≤10000,<br>任意边长的绝对值不超过10000。</p><h2 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a><strong>输入样例</strong></h2><p>3 3 1<br>1 2 1<br>2 3 1<br>1 3 3</p><h2 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a><strong>输出样例</strong></h2><p>3</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>Bellman-Ford 算法和 Dijkstra 算法同为解决单源最短路径的算法。对于带权有向图 G = (V, E)，Dijkstra 算法要求图 G 中边的权值均为非负，而 Bellman-Ford 算法能适应一般的情况（即存在负权边的情况）。一个实现的很好的 Dijkstra 算法比 Bellman-Ford 算法的运行时间要低。</p><p>Bellman-Ford 算法采用动态规划（Dynamic Programming）进行设计，实现的时间复杂度为 O(V*E)，其中 V 为顶点数量，E 为边的数量。Dijkstra 算法采用贪心算法（Greedy Algorithm）范式进行设计，普通实现的时间复杂度为 O(V2)，若基于 Fibonacci heap 的最小优先队列实现版本则时间复杂度为 O(E + VlogV)。</p><p>Bellman-Ford 算法描述：</p><p>1、创建源顶点 v 到图中所有顶点的距离的集合 distSet，为图中的所有顶点指定一个距离值，初始均为 Infinite，源顶点距离为 0；<br>2、计算最短路径，执行 V - 1 次遍历；<br>    对于图中的每条边：如果起点 u 的距离 d 加上边的权值 w 小于终点 v 的距离 d，则更新终点 v 的距离值 d；<br>3、检测图中是否有负权边形成了环，遍历图中的所有边，计算 u 至 v 的距离，如果对于 v 存在更小的距离，则说明存在环；</p><p>伪代码实现：<br>1 BELLMAN-FORD(G, w, s)<br>2   INITIALIZE-SINGLE-SOURCE(G, s)<br>3   for i  1 to |V[G]| - 1<br>4        do for each edge (u, v)  E[G]<br>5             do RELAX(u, v, w) //松弛操作，即dist[u] = min(dist[u],dist[v] + w)<br>6   for each edge (u, v)  E[G]<br>7        do if d[v] &gt; d[u] + w(u, v)<br>8             then return FALSE<br>9   return TRUE</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">510</span>, M = <span class="number">10010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m,k;</span><br><span class="line"><span class="keyword">int</span> dist[N],backup[N];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> a, b ,w;</span><br><span class="line">&#125;edges[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bellman_ford</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(dist, <span class="number">0x3f</span>, <span class="keyword">sizeof</span> dist);</span><br><span class="line">    dist[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; k; i++)&#123;</span><br><span class="line">        <span class="built_in">memcpy</span>(backup, dist, <span class="keyword">sizeof</span> dist);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; j++)&#123;</span><br><span class="line">            <span class="keyword">int</span> a = edges[j].a, b =edges[j].b, w= edges[j].w;</span><br><span class="line">            dist[b] = min(dist[b],backup[a] + w);</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(dist[n] &gt; <span class="number">0x3f3f3f3f</span> / <span class="number">2</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">return</span> dist[n];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%d%d&quot;</span>,&amp;n, &amp; m, &amp;k);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> a,b,w;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d%d%d&quot;</span>, &amp;a, &amp;b, &amp;w);</span><br><span class="line">        edges[i] = &#123;a,b,w&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> t = bellman_ford();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(t == <span class="number">-1</span>) <span class="built_in">puts</span>(<span class="string">&quot;impossible&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,t);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Bellman-Ford算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】基础算法——Dijkstra求最短路2（四十五）</title>
       <link href="2021/01/26/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94Dijkstra%E6%B1%82%E6%9C%80%E7%9F%AD%E8%B7%AF2%EF%BC%88%E5%9B%9B%E5%8D%81%E4%BA%94%EF%BC%89/"/>
       <url>2021/01/26/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94Dijkstra%E6%B1%82%E6%9C%80%E7%9F%AD%E8%B7%AF2%EF%BC%88%E5%9B%9B%E5%8D%81%E4%BA%94%EF%BC%89/</url>
