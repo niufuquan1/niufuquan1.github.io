@@ -4,6 +4,58 @@
   
     
     <entry>
+      <title>【每日算法】基础算法——筛质数（五十六）</title>
+      <link href="2021/01/28/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E7%AD%9B%E8%B4%A8%E6%95%B0%EF%BC%88%E4%BA%94%E5%8D%81%E5%85%AD%EF%BC%89/"/>
+      <url>2021/01/28/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E7%AD%9B%E8%B4%A8%E6%95%B0%EF%BC%88%E4%BA%94%E5%8D%81%E5%85%AD%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给定一个正整数n，请你求出1~n中质数的个数。</p><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a><strong>输入格式</strong></h2><p>共一行，包含整数n。</p><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a><strong>输出格式</strong></h2><p>共一行，包含一个整数，表示1~n中质数的个数。</p><h2 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a><strong>数据范围</strong></h2><p>1≤n≤10^6</p><h2 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a><strong>输入样例</strong></h2><p>8</p><h2 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a><strong>输出样例</strong></h2><p>4</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>埃氏筛法：<br>以前方的数为基础，删掉可以整除的后方的数。将全部的数过滤完之后，剩余的就是质数。比如：2，3，4，5，6，7，8，9，10，11，12，13，14。跟据2，把4，6，8，10，12，14删除；跟据3，把6，9，12删除；跟据4，把8，12删除；依此类推。</p><p>线性筛法：<br>n只会被最小质因子筛掉<br>1、i % primes[j] == 0<br>    primes[j] 一定是i的最小质因子，primes[j]一定是primes[j] <em> i的最小质因子<br>2、i % primes[j] != 0<br>    primes[j]一定小于i的所有质因子，primes[j]也一定是primes[j] </em> i的最小质因子<br>对于一个合数x，假设primes[j]是x的最小质因子，当i枚举到x/primes[j]时，内层for循环就已经可以将x筛掉了。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1000010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> primes[N], cnt;</span><br><span class="line"><span class="keyword">bool</span> st[N];</span><br><span class="line"></span><br><span class="line"><span class="comment">//埃氏筛法</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">get_primes</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!st[i])&#123;</span><br><span class="line">            primes[cnt++] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j =  i + i; j&lt;= n;j+=i) st[j] = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//线性筛法</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">get_primes_1</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!st[i])&#123;</span><br><span class="line">            primes[cnt++] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; primes[j] &lt;= n / i; j++ )&#123;</span><br><span class="line">            st[primes[j] * i] = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span>(i % primes[j] == <span class="number">0</span>) <span class="keyword">break</span>; <span class="comment">// primes[j]一定是i的最小质因子</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    get_primes(n);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; cnt &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 质数 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【每日算法】基础算法——分界质因数（五十五）</title>
+      <link href="2021/01/28/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%88%86%E7%95%8C%E8%B4%A8%E5%9B%A0%E6%95%B0%EF%BC%88%E4%BA%94%E5%8D%81%E4%BA%94%EF%BC%89/"/>
+      <url>2021/01/28/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%88%86%E7%95%8C%E8%B4%A8%E5%9B%A0%E6%95%B0%EF%BC%88%E4%BA%94%E5%8D%81%E4%BA%94%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给定n个正整数ai，将每个数分解质因数，并按照质因数从小到大的顺序输出每个质因数的底数和指数。</p><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a><strong>输入格式</strong></h2><p>第一行包含整数n。</p><p>接下来n行，每行包含一个正整数ai。</p><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a><strong>输出格式</strong></h2><p>对于每个正整数ai,按照从小到大的顺序输出其分解质因数后，每个质因数的底数和指数，每个底数和指数占一行。</p><p>每个正整数的质因数全部输出完毕后，输出一个空行。</p><h2 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a><strong>数据范围</strong></h2><p>1≤n≤100 ,<br>1≤ai≤2*10^9</p><h2 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a><strong>输入样例</strong></h2><p>2<br>6<br>8</p><h2 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a><strong>输出样例</strong></h2><p>2 1<br>3 1</p><p>2 3</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题仍旧以试除法为主。<br>这里仅仅指出一点就是，因为n中最多只包含一个大于sqrt(n)的质因子，因此在代码编写的时候，把小于sqrt(n)的质因子找出来之后，再处理大于的情况会更加简便。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">divide</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n / i; i++)</span><br><span class="line">        <span class="keyword">if</span>(n % i == <span class="number">0</span>)&#123; <span class="comment">// i一定是质数时if才可能成立。因为当枚举到i的时候，n已经把从2到i-1的数除干净了！注意n是一直在while循环中变化的！</span></span><br><span class="line">            <span class="keyword">int</span> s = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>(n % i == <span class="number">0</span>)&#123;</span><br><span class="line">                n /= i;</span><br><span class="line">                s++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d %d\n&quot;</span>,i , s);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">&quot;%d %d\n&quot;</span>,n,<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line">    <span class="keyword">while</span>(n --)&#123;</span><br><span class="line">        <span class="keyword">int</span> num;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;num);</span><br><span class="line">        divide(num);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 质数 </tag>
+            
+            <tag> 质因数 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】基础算法——试除法判定质数（五十四）</title>
       <link href="2021/01/28/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E8%AF%95%E9%99%A4%E6%B3%95%E5%88%A4%E5%AE%9A%E8%B4%A8%E6%95%B0%EF%BC%88%E4%BA%94%E5%8D%81%E5%9B%9B%EF%BC%89/"/>
       <url>2021/01/28/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E8%AF%95%E9%99%A4%E6%B3%95%E5%88%A4%E5%AE%9A%E8%B4%A8%E6%95%B0%EF%BC%88%E4%BA%94%E5%8D%81%E5%9B%9B%EF%BC%89/</url>
