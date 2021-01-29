@@ -143,9 +143,9 @@
       
         <tags>
             
-            <tag> 最小生成树 </tag>
-            
             <tag> Kruskal算法 </tag>
+            
+            <tag> 最小生成树 </tag>
             
         </tags>
       
@@ -170,9 +170,9 @@
       
         <tags>
             
-            <tag> Prim算法 </tag>
-            
             <tag> 最小生成树 </tag>
+            
+            <tag> Prim算法 </tag>
             
         </tags>
       
