@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】基础算法——线性同余方程（六十六）</title>
+      <link href="2021/02/01/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E7%BA%BF%E6%80%A7%E5%90%8C%E4%BD%99%E6%96%B9%E7%A8%8B%EF%BC%88%E5%85%AD%E5%8D%81%E5%85%AD%EF%BC%89/"/>
+      <url>2021/02/01/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E7%BA%BF%E6%80%A7%E5%90%8C%E4%BD%99%E6%96%B9%E7%A8%8B%EF%BC%88%E5%85%AD%E5%8D%81%E5%85%AD%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给定n组数据ai,bi,mi，对于每组数求出一个xi，使其满足ai∗xi≡bi(mod mi)，如果无解则输出impossible。</p><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a><strong>输入格式</strong></h2><p>第一行包含整数n。</p><p>接下来n行，每行包含一组数据ai,bi,mi。</p><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a><strong>输出格式</strong></h2><p>输出共n行，每组数据输出一个整数表示一个满足条件的xi，如果无解则输出impossible。</p><p>每组数据结果占一行，结果可能不唯一，输出任意一个满足条件的结果均可。</p><p>输出答案必须在int范围之内。</p><h2 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a><strong>数据范围</strong></h2><p>1≤n≤10^5,<br>1≤ai,bi,mi≤2*10^9</p><h2 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a><strong>输入样例</strong></h2><p>2<br>2 3 6<br>4 3 5</p><h2 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a><strong>输出样例</strong></h2><p>impossible<br>-3</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>ax ≡ b(mod m) 等价于存在一个整数y，使得 ax = my + b，将式子转化便成为了ax + my = b，就转化为了扩展欧几里得算法的内容。注意有解的前提是b要整除a和m的最大公约数，如果不能则无解。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">exgcd</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b, <span class="keyword">int</span> &amp;x, <span class="keyword">int</span> &amp;y)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!b)&#123;</span><br><span class="line">        x = <span class="number">1</span>, y = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> d = exgcd(b, a % b, y, x);</span><br><span class="line">    y -= a / b * x;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> d;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">while</span>(n -- )&#123;</span><br><span class="line">        <span class="keyword">int</span> a,b,m;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d%d%d&quot;</span>, &amp;a,&amp;b,&amp;m);</span><br><span class="line">        <span class="keyword">int</span> x,y;</span><br><span class="line">        <span class="keyword">int</span> d = exgcd(a, m, x, y);</span><br><span class="line">        <span class="keyword">if</span>(b % d) <span class="built_in">puts</span>(<span class="string">&quot;impossible&quot;</span>);</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, (LL)x * (b / d) % m);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 线性同余方程 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】基础算法——扩展欧几里得算法（六十五）</title>
       <link href="2021/01/31/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95%EF%BC%88%E5%85%AD%E5%8D%81%E4%BA%94%EF%BC%89/"/>
       <url>2021/01/31/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95%EF%BC%88%E5%85%AD%E5%8D%81%E4%BA%94%EF%BC%89/</url>
