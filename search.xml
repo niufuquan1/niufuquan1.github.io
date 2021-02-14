@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>【每日算法】基础算法——01背包问题（六十七）</title>
+      <link href="2021/02/14/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%9401%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%EF%BC%88%E5%85%AD%E5%8D%81%E4%B8%83%EF%BC%89/"/>
+      <url>2021/02/14/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%9401%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%EF%BC%88%E5%85%AD%E5%8D%81%E4%B8%83%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a><strong>输入格式</strong></h2><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a><strong>输出格式</strong></h2><h2 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a><strong>数据范围</strong></h2><h2 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a><strong>输入样例</strong></h2><h2 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a><strong>输出样例</strong></h2><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【理财】对基金理财的一些自己的笔记</title>
       <link href="2021/02/14/%E3%80%90%E7%90%86%E8%B4%A2%E3%80%91%E5%AF%B9%E5%9F%BA%E9%87%91%E7%90%86%E8%B4%A2%E7%9A%84%E4%B8%80%E4%BA%9B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%AC%94%E8%AE%B0/"/>
       <url>2021/02/14/%E3%80%90%E7%90%86%E8%B4%A2%E3%80%91%E5%AF%B9%E5%9F%BA%E9%87%91%E7%90%86%E8%B4%A2%E7%9A%84%E4%B8%80%E4%BA%9B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%AC%94%E8%AE%B0/</url>
@@ -21,31 +40,6 @@
         <tags>
             
             <tag> 基金 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>【每日算法】基础算法——表达整数的奇怪方式（六十七）</title>
-      <link href="2021/02/01/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E8%A1%A8%E8%BE%BE%E6%95%B4%E6%95%B0%E7%9A%84%E5%A5%87%E6%80%AA%E6%96%B9%E5%BC%8F%EF%BC%88%E5%85%AD%E5%8D%81%E4%B8%83%EF%BC%89/"/>
-      <url>2021/02/01/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E8%A1%A8%E8%BE%BE%E6%95%B4%E6%95%B0%E7%9A%84%E5%A5%87%E6%80%AA%E6%96%B9%E5%BC%8F%EF%BC%88%E5%85%AD%E5%8D%81%E4%B8%83%EF%BC%89/</url>
-      
-        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给定 2n 个整数a1,a2,…,an和m1,m2,…,mn,求一个最小的非负整数 x，满足∀i∈[1,n],x≡mi(mod ai)。</p><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a><strong>输入格式</strong></h2><p>第1 行包含整数 n。<br>第 2..n+1行：每 i+1 行包含两个整数ai和mi,数之间用空格隔开。</p><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a><strong>输出格式</strong></h2><p>输出最小非负整数 x，如果 x 不存在，则输出 −1。<br>如果存在 x，则数据保证 x 一定在64位整数范围内。</p><h2 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a><strong>数据范围</strong></h2><p>1≤ai≤2^31−1 ,<br>0≤mi&lt;ai<br>1≤n≤25</p><h2 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a><strong>输入样例</strong></h2><p>2<br>8 7<br>11 9</p><h2 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a><strong>输出样例</strong></h2><p>31</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> 算法 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 中国剩余定理扩展版 </tag>
             
         </tags>
       
