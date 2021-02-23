@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>【每日算法】基础算法——多重背包问题二（七十）</title>
+      <link href="2021/02/22/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%E4%BA%8C%EF%BC%88%E4%B8%83%E5%8D%81%EF%BC%89/"/>
+      <url>2021/02/22/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%E4%BA%8C%EF%BC%88%E4%B8%83%E5%8D%81%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>有 N 种物品和一个容量是 V 的背包。</p><p>第 i 种物品最多有 si 件，每件体积是 vi，价值是 wi。</p><p>求解将哪些物品装入背包，可使物品体积总和不超过背包容量，且价值总和最大。<br>输出最大价值。</p><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a><strong>输入格式</strong></h2><p>第一行两个整数，N，V，用空格隔开，分别表示物品种数和背包容积。</p><p>接下来有 N 行，每行三个整数 vi,wi,si，用空格隔开，分别表示第 i 种物品的体积、价值和数量。</p><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a><strong>输出格式</strong></h2><p>输出一个整数，表示最大价值。</p><h2 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a><strong>数据范围</strong></h2><p>0&lt;N≤1000<br>0&lt;V≤2000<br>0&lt;vi,wi,si≤2000</p><p>提示：<br>本题考查多重背包的二进制优化方法。</p><h2 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a><strong>输入样例</strong></h2><p>4 5<br>1 2 3<br>2 4 1<br>3 4 3<br>4 5 2</p><h2 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a><strong>输出样例</strong></h2><p>10</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题是将多重背包问题拆分成为01背包问题。思路如下：<br>因为每种物品，假设为第i件物品，有s[i]个，那么将之看做有s[i]个物品，那么总体就一共有Σ(i=0,…,n)s[i] 个物品，这样就转化为了每个物品仅可用一次的01背包问题。但是，由于按照这种思路拆分非常麻烦，根据题目中给出的数量，若有1000件物品，每件物品有2000个，那么最多一共2000000个物品，按照体积最大计算，复杂度在10的9次方左右，在C++中会溢出。因此需要采用一种2进制的拆分方法。</p><p>二进制拆分方法的原问题如下：<br>给定任意一个数，问最少可以将其分成多少个数，且每个数可选可不选，将从0至该数的内的任何数进行表示。</p><p>假设s为给定数字，那么最少需要log以2为底的s的对数（向上取整）个数来参与表示。同时，给出两个例子，来让大家辅助思考。<br>例子1：<br>s=7,最少需要有3个数表示，分别为1，2，4<br>0=三个数不选<br>1=1<br>2=2<br>3=1+2<br>4=4<br>5=1+4<br>6=2+4<br>7=1+2+4</p><p>例子2：<br>s=10,最少需要4个数表示，分别为1，2，4，3  （因为1，2，4可以表示0-7，那么再加上3就可以表示0-10的数了）<br>8=1+3+4<br>9=2+3+4<br>10=1+2+3+4</p><p>这里补充一个小常识，在C++中一秒大概完成10的7次方次的操作，根据此可以对自己算法的复杂度进行估计。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">2010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="keyword">int</span> f[N];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Good</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> v,w;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;Good&gt; goods;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt;n &gt;&gt;m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> v,w,s;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; v &gt;&gt; w &gt;&gt; s;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">1</span>; k &lt;= s; k*=<span class="number">2</span>)&#123;</span><br><span class="line">            s-=k;</span><br><span class="line">            goods.push_back(&#123;v*k,w*k&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(s &gt; <span class="number">0</span>) goods.push_back(&#123;v*s,w*s&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> good:goods)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = m; j&gt;=good.v; j--)</span><br><span class="line">            f[j] = max(f[j],f[j - good.v]+good.w);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; f[m] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 背包问题 </tag>
+            
+            <tag> DP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】基础算法——多重背包问题（六十九）</title>
       <link href="2021/02/22/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%EF%BC%88%E5%85%AD%E5%8D%81%E4%B9%9D%EF%BC%89/"/>
       <url>2021/02/22/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%EF%BC%88%E5%85%AD%E5%8D%81%E4%B9%9D%EF%BC%89/</url>
