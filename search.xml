@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 2 —— 两数相加（九十四）</title>
+      <link href="2021/03/27/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-2-%E2%80%94%E2%80%94-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0%EF%BC%88%E4%B9%9D%E5%8D%81%E5%9B%9B%EF%BC%89/"/>
+      <url>2021/03/27/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-2-%E2%80%94%E2%80%94-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0%EF%BC%88%E4%B9%9D%E5%8D%81%E5%9B%9B%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。</p><p>请你将两个数相加，并以相同形式返回一个表示和的链表。</p><p>你可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><h3 id="示例一"><a href="#示例一" class="headerlink" title="示例一"></a>示例一</h3><p><img src="/2021/03/27/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-2-%E2%80%94%E2%80%94-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0%EF%BC%88%E4%B9%9D%E5%8D%81%E5%9B%9B%EF%BC%89/1.jpg" alt><br>输入：l1 = [2,4,3], l2 = [5,6,4]<br>输出：[7,0,8]<br>解释：342 + 465 = 807.</p><h3 id="示例二"><a href="#示例二" class="headerlink" title="示例二"></a>示例二</h3><p>输入：l1 = [0], l2 = [0]<br>输出：[0]</p><h3 id="示例三"><a href="#示例三" class="headerlink" title="示例三"></a>示例三</h3><p>输入：l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]<br>输出：[8,9,9,9,0,0,0,1]</p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>每个链表中的节点数在范围 [1, 100] 内<br>0 &lt;= Node.val &lt;= 9<br>题目数据保证列表表示的数字不含前导零</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>首先，大家需要知道做题的一个技巧，设置虚拟头结点。这样做的好处就是能够统一化处理头结点和其他节点；同时还能够通过其构造新的链表。<br>例如：<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">auto</span> dummy = <span class="keyword">new</span> ListNode(<span class="number">-1</span>);</span><br><span class="line">dummy -&gt; next = head;</span><br></pre></td></tr></table></figure><br>在本题中，主要是模拟一个加法的操作。新的结果的每一位都是存储对应l1的数和l2的数与进位三个数的和的个位数，然后计算出针对下一位的进位，一直算到结束即可。<br>假设，三个数的和为t。</p><ul><li>对应该位上结果的数为：t % 10</li><li>对应的进位是 t /= 10</li></ul><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode() : val(0), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> dummy = <span class="keyword">new</span> ListNode(<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">auto</span> cur = dummy;<span class="comment">//cur表示当前这个和链表的尾结点是哪个点</span></span><br><span class="line">        <span class="keyword">int</span> t = <span class="number">0</span>; <span class="comment">//表示进位</span></span><br><span class="line">        <span class="keyword">while</span>(l1 || l2 || t)&#123;</span><br><span class="line">            <span class="keyword">if</span>(l1) t += l1 -&gt; val, l1 = l1 -&gt; next;<span class="comment">//如果l1存在，那么t加上对应的数值，l1往下走</span></span><br><span class="line">            <span class="keyword">if</span>(l2) t += l2 -&gt; val, l2 = l2 -&gt; next;<span class="comment">//如果l2存在，那么t加上对应的数值，l2往下走</span></span><br><span class="line">            cur -&gt; next = <span class="keyword">new</span> ListNode(t % <span class="number">10</span>);<span class="comment">//创建一个新节点，用于存储对应位置的值，t % 10</span></span><br><span class="line">            cur = cur -&gt; next;<span class="comment">//节点往下更新</span></span><br><span class="line">            t /= <span class="number">10</span>;<span class="comment">//求进位，然后继续循环，直到不符合while循环条件即可</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dummy -&gt; next;<span class="comment">//通过虚拟头结点，轻松找到对应链表的头节点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 1 —— 两数之和（九十三）</title>
       <link href="2021/03/26/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-1-%E2%80%94%E2%80%94-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%EF%BC%88%E4%B9%9D%E5%8D%81%E4%B8%89%EF%BC%89/"/>
       <url>2021/03/26/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-1-%E2%80%94%E2%80%94-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%EF%BC%88%E4%B9%9D%E5%8D%81%E4%B8%89%EF%BC%89/</url>
