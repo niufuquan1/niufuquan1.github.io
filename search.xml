@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 7 —— 整数反转（九十九）</title>
+      <link href="2021/03/31/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-7-%E2%80%94%E2%80%94-%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC%EF%BC%88%E4%B9%9D%E5%8D%81%E4%B9%9D%EF%BC%89/"/>
+      <url>2021/03/31/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-7-%E2%80%94%E2%80%94-%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC%EF%BC%88%E4%B9%9D%E5%8D%81%E4%B9%9D%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给你一个 32 位的有符号整数 x ，返回将 x 中的数字部分反转后的结果。</p><p>如果反转后整数超过 32 位的有符号整数的范围 [−2^31,  2^31 − 1] ，就返回 0。</p><p>假设环境不允许存储 64 位整数（有符号或无符号）。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1：<br>输入：x = 123<br>输出：321</p><p>示例 2：<br>输入：x = -123<br>输出：-321</p><p>示例 3：<br>输入：x = 120<br>输出：21</p><p>示例 4：<br>输入：x = 0<br>输出：0</p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>-2^31 &lt;= x &lt;= 2^31 - 1</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题可以依次从右往左计算出每位数字，然后逆序累加在一个整数中。</p><p>本题有两点需要注意：<br>1、由于int型整数逆序后可能会溢出，要用long long类型记录中间结果；<br>2、在C++中，负数的取模运算和数学意义上的取模运算不同，其结果还是负数，例如 −12 % 10 = −2，所以我们不需要对负数进行额外处理。</p><p>时间复杂度分析：一共有 O(logn) 位，对于每一位的计算量是常数级的，所以总时间复杂度是 O(logn).</p><p>解释一下为什么O(logn):<br>比如数字n=100，那其数字长度与 log以10为底的100的对数 有关。本题中更关心的是数x，对应的数字长度。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">reverse</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(x)&#123;</span><br><span class="line">            <span class="comment">//x % 10 把x的每一位抠出来,然后再更新x=x/10即可。 秦九韶算法</span></span><br><span class="line">            <span class="keyword">if</span>(x &gt; <span class="number">0</span> &amp;&amp; res &gt; (INT_MAX - x % <span class="number">10</span>) / <span class="number">10</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(x &lt; <span class="number">0</span> &amp;&amp; res &lt; (INT_MIN - x % <span class="number">10</span>) / <span class="number">10</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            res = res * <span class="number">10</span> + x % <span class="number">10</span>;</span><br><span class="line">            x = x/<span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 6 —— Z字形变换（九十八）</title>
       <link href="2021/03/31/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-6-%E2%80%94%E2%80%94-Z%E5%AD%97%E5%BD%A2%E5%8F%98%E6%8D%A2%EF%BC%88%E4%B9%9D%E5%8D%81%E5%85%AB%EF%BC%89/"/>
       <url>2021/03/31/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-6-%E2%80%94%E2%80%94-Z%E5%AD%97%E5%BD%A2%E5%8F%98%E6%8D%A2%EF%BC%88%E4%B9%9D%E5%8D%81%E5%85%AB%EF%BC%89/</url>
