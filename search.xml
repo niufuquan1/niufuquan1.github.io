@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 19 —— 删除链表的倒数第N个节点（一百一十一）</title>
+      <link href="2021/04/14/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-19-%E2%80%94%E2%80%94-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E8%8A%82%E7%82%B9%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%80%E5%8D%81%E4%B8%80%EF%BC%89/"/>
+      <url>2021/04/14/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-19-%E2%80%94%E2%80%94-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E8%8A%82%E7%82%B9%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%80%E5%8D%81%E4%B8%80%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。</p><p>进阶：你能尝试使用一趟扫描实现吗？</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1：</p><p><img src="/2021/04/14/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-19-%E2%80%94%E2%80%94-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E8%8A%82%E7%82%B9%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%80%E5%8D%81%E4%B8%80%EF%BC%89/1.png" alt></p><p>输入：head = [1,2,3,4,5], n = 2<br>输出：[1,2,3,5]</p><p>示例 2：</p><p>输入：head = [1], n = 1<br>输出：[]</p><p>示例 3：</p><p>输入：head = [1,2], n = 1<br>输出：[1]</p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>链表中结点的数目为 sz<br>1 &lt;= sz &lt;= 30<br>0 &lt;= Node.val &lt;= 100<br>1 &lt;= n &lt;= sz</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题是一个链表的问题，这类题目建议大家多画图，用图辅助理解效果最好。</p><p>首先，还是跟之前一样，强调一下虚拟头结点的重要性。在链表求解的过程中，引入虚拟头结点之后，我们就可以将head指针和其他链表的其他节点一样统一处理，这样就避免了head指针的特殊性，我们处理起来更舒服，因此强烈建议在处理链表问题时，一定要创建一个虚拟头结点，然后让其指向head。</p><p>好了，看题，有如下思路：</p><p>1、因为要求倒数第n个点，因此链表的长度是一定要知道的，所以我们需要构建一个循环，把链表的长度求出来。</p><p>2、假设求出来链表的长度为N，那么倒数第n个点，其实就是正数第N-n+1个点。（公式为：target = length - 倒数第几 +1）</p><p>3、由于本题是一个单链表，所以想要删除一个节点，其实就是将要删除的节点的上一个节点的next指针指向要删除节点的下一个节点即可，用图表示如下：</p><p><img src="/2021/04/14/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-19-%E2%80%94%E2%80%94-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E8%8A%82%E7%82%B9%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%80%E5%8D%81%E4%B8%80%EF%BC%89/2.png" alt></p><p>4、倒数第n个节点的上一个节点就是倒数第n+1个节点，对应正数第N-(n+1)+1，即N-n个点。</p><p>具体，请看代码实现就好了。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode() : val(0), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> dummy = <span class="keyword">new</span> ListNode(<span class="number">-1</span>);<span class="comment">//创建虚拟头结点，里面的val随便设置，算法中不需要用。</span></span><br><span class="line">        dummy -&gt; next = head;<span class="comment">//设置虚拟头结点指向head</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> length = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">auto</span> t = dummy;</span><br><span class="line">        <span class="keyword">while</span>(t)&#123;</span><br><span class="line">          <span class="comment">//求出链表长度</span></span><br><span class="line">            t = t -&gt; next;</span><br><span class="line">            length++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">//开始进行删除操作</span></span><br><span class="line">        t = dummy;</span><br><span class="line">        <span class="comment">//倒数第n+1个点就是正数第length-(k+1)+1=length-k个点。</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; length - n - <span class="number">1</span>; i++) t = t -&gt;next;</span><br><span class="line">        t-&gt;next = t-&gt;next-&gt;next;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dummy-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 18 —— 四数之和（一百一十）</title>
       <link href="2021/04/13/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-18-%E2%80%94%E2%80%94-%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%80%E5%8D%81%EF%BC%89/"/>
       <url>2021/04/13/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-18-%E2%80%94%E2%80%94-%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%80%E5%8D%81%EF%BC%89/</url>
