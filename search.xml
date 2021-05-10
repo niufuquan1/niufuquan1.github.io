@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 43 —— 字符串相乘 （一百三十五）</title>
+      <link href="2021/05/10/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-43-%E2%80%94%E2%80%94-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%98-%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%89%E5%8D%81%E4%BA%94%EF%BC%89/"/>
+      <url>2021/05/10/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-43-%E2%80%94%E2%80%94-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%98-%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%89%E5%8D%81%E4%BA%94%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1:</p><p>输入: num1 = “2”, num2 = “3”<br>输出: “6”</p><p>示例 2:</p><p>输入: num1 = “123”, num2 = “456”<br>输出: “56088”</p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>1、num1 和 num2 的长度小于110。<br>2、num1 和 num2 只包含数字 0-9。<br>3、num1 和 num2 均不以零开头，除非是数字 0 本身。<br>4、不能使用任何标准库的大数类型（比如 BigInteger）或直接将输入转换为整数来处理。</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题是高精度乘法的类型题中的一种。在求解本题时，可以回顾一种列竖式的方式求解，见下图：</p><p><img src="/2021/05/10/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-43-%E2%80%94%E2%80%94-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%98-%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%89%E5%8D%81%E4%BA%94%EF%BC%89/1.png" alt></p><p>每个位置的进位放置到最后处理，这样可以便于最后的计算求解。</p><p>这里，如果设A[i]和B[j]分别是num1和num2，C[k]为对应位置的乘积和，则A[i]与B[j]的乘积和应该加到C[i+j]中。</p><p>具体，请看代码注释</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">multiply</span><span class="params">(<span class="built_in">string</span> num1, <span class="built_in">string</span> num2)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//高精度乘法</span></span><br><span class="line">        <span class="keyword">int</span> n = num1.size(),m = num2.size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; A, B;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) A.push_back(num1[i] - <span class="string">&#x27;0&#x27;</span>);<span class="comment">//将其映射为逆序的数字</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = m - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) B.push_back(num2[i] - <span class="string">&#x27;0&#x27;</span>);<span class="comment">//同上</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">C</span><span class="params">(n + m)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; j++)</span><br><span class="line">                C[i + j] += A[i] * B[j]; <span class="comment">//处理乘积，暂时忽略进位</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>, t = <span class="number">0</span>; i &lt; C.size(); i++)&#123;</span><br><span class="line">            <span class="comment">//t表示进位，这里将C[i]处理成最终的答案的逆序</span></span><br><span class="line">            t += C[i];</span><br><span class="line">            C[i] = t % <span class="number">10</span>; <span class="comment">//把个位数找出来,并赋值给C的对应位置</span></span><br><span class="line">            t /= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> k = C.size() - <span class="number">1</span>; <span class="comment">//k代表数字位数</span></span><br><span class="line">        <span class="keyword">while</span>(k &gt; <span class="number">0</span> &amp;&amp; !C[k]) k--;<span class="comment">//将开头存在0的情况删除</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">string</span> res;</span><br><span class="line">        <span class="keyword">while</span>(k &gt;= <span class="number">0</span>) res += C[k--] + <span class="string">&#x27;0&#x27;</span>; <span class="comment">//将最后的结果再映射为字符串</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 42 —— 接雨水 （一百三十四）</title>
       <link href="2021/05/08/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-42-%E2%80%94%E2%80%94-%E6%8E%A5%E9%9B%A8%E6%B0%B4-%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%89%E5%8D%81%E5%9B%9B%EF%BC%89/"/>
       <url>2021/05/08/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-42-%E2%80%94%E2%80%94-%E6%8E%A5%E9%9B%A8%E6%B0%B4-%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%89%E5%8D%81%E5%9B%9B%EF%BC%89/</url>
