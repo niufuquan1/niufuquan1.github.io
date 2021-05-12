@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 46 —— 全排列 （一百三十八）</title>
+      <link href="2021/05/12/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-46-%E2%80%94%E2%80%94-%E5%85%A8%E6%8E%92%E5%88%97-%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%89%E5%8D%81%E5%85%AB%EF%BC%89/"/>
+      <url>2021/05/12/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-46-%E2%80%94%E2%80%94-%E5%85%A8%E6%8E%92%E5%88%97-%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%89%E5%8D%81%E5%85%AB%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1：</p><p>输入：nums = [1,2,3]<br>输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]</p><p>示例 2：</p><p>输入：nums = [0,1]<br>输出：[[0,1],[1,0]]</p><p>示例 3：</p><p>输入：nums = [1]<br>输出：[[1]]</p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>1、1 &lt;= nums.length &lt;= 6<br>2、-10 &lt;= nums[i] &lt;= 10<br>3、nums 中的所有整数 互不相同</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题可以使用深度优先搜索算法求解。</p><p>首先，从前往后，一位一位枚举，每次选择一个没有被使用过的数。<br>然后，将该数的状态改成“已被使用”，同时将该数记录在相应位置上，然后递归。</p><p>注意：递归返回时，需要将该数的状态改成“未被使用”，并将该数从相应位置上删除。因为在某一条路径（dfs）走到底往回走的时候，要把走过的印记擦除掉，如果不擦除的话，那么整个dfs就只会返回一条路径，从一个点往不同分支走的时候要保证不同分支相互之间没有影响才行，所以从每个分支退回来的时候需要把修改过的状态还原。</p><p>具体，请看代码实现。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; ans;<span class="comment">//全局结果</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; path;<span class="comment">//路径</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; st;<span class="comment">//标志位，用于记录数字是否被使用</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">permute</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        path = <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(nums.size());<span class="comment">//初始化path</span></span><br><span class="line">        st = <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;(nums.size());<span class="comment">//初始化st</span></span><br><span class="line"></span><br><span class="line">        dfs(nums,<span class="number">0</span>);<span class="comment">//传递当前第几位</span></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//实现搜索算法，u代表当前枚举第几位</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(u == nums.size())&#123;</span><br><span class="line">          <span class="comment">//如果u枚举到了最后一位，则说明搜索完毕，将答案记录到全局结果中，然后返回</span></span><br><span class="line">            ans.push_back(path);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      <span class="comment">//递归遍历求解</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(st[i] == <span class="literal">false</span>)&#123;</span><br><span class="line">              <span class="comment">//当某个数没有被使用时，当前位置采用该数，并将该数的标志修改为true，表示已经使用过，然后递归下一位。</span></span><br><span class="line">                path[u] = nums[i];</span><br><span class="line">                st[i] = <span class="literal">true</span>;</span><br><span class="line">                dfs(nums,u + <span class="number">1</span>);</span><br><span class="line">                st[i] = <span class="literal">false</span>;<span class="comment">//要注意恢复现场，具体解释见题解中的注意事项</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 45 —— 跳跃游戏 II （一百三十七）</title>
       <link href="2021/05/11/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-45-%E2%80%94%E2%80%94-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F-II-%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%89%E5%8D%81%E4%B8%83%EF%BC%89/"/>
       <url>2021/05/11/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-45-%E2%80%94%E2%80%94-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F-II-%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%89%E5%8D%81%E4%B8%83%EF%BC%89/</url>
