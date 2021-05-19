@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 53 —— 最大子序和（一百四十五）</title>
+      <link href="2021/05/19/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-53-%E2%80%94%E2%80%94-%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C%EF%BC%88%E4%B8%80%E7%99%BE%E5%9B%9B%E5%8D%81%E4%BA%94%EF%BC%89/"/>
+      <url>2021/05/19/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-53-%E2%80%94%E2%80%94-%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C%EF%BC%88%E4%B8%80%E7%99%BE%E5%9B%9B%E5%8D%81%E4%BA%94%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1：</p><p>输入：nums = [-2,1,-3,4,-1,2,1,-5,4]<br>输出：6<br>解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。</p><p>示例 2：</p><p>输入：nums = [1]<br>输出：1</p><p>示例 3：</p><p>输入：nums = [0]<br>输出：0</p><p>示例 4：</p><p>输入：nums = [-1]<br>输出：-1</p><p>示例 5：</p><p>输入：nums = [-100000]<br>输出：-100000</p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>1、1 &lt;= nums.length &lt;= 3 * 10^4<br>2、-10^5 &lt;= nums[i] &lt;= 10^5</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题考查动态规划思想。</p><p>1、定义状态表示函数f[i]：表示所有以nums[i]为结尾的区间的最大和</p><p>2、定义递归表达式：f[i] = max( f[i-1] + nums[i] , nums[i]) = nums[i] + max(f[i - 1] , 0)</p><p>这里解释一下递推表达式是这样的。</p><p>以nums[i]为结尾的区间可以分为两类，一类是仅存在nums[i]，另一类则是max(从nums[i-1]到nums[i],从nums[i-2]到nums[i],…,从0到nums[i])，而这里将nums[i]提取出来，则剩下的就是f[i-1]。</p><p>所以，可得出递推表达式。</p><p>我们再求出f[i]中的全局最大值即可。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//f[i]表示所有以nums[i]结尾的区间的最大和</span></span><br><span class="line">        <span class="comment">//f[i] = max&#123;f[i - 1] + nums[i], nums[i]&#125; = nums[i] + max&#123;f[i - 1], 0&#125;</span></span><br><span class="line">        <span class="keyword">int</span> res = INT_MIN;<span class="comment">//首先，初始化最终结果为int最小值</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>, last = <span class="number">0</span>; i &lt; nums.size(); i++)&#123;</span><br><span class="line">            last = nums[i] + max(last, <span class="number">0</span>);<span class="comment">//last记录f[i-1]</span></span><br><span class="line">            res = max(res, last);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 52 —— N 皇后II （一百四十四）</title>
       <link href="2021/05/19/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-52-%E2%80%94%E2%80%94-N-%E7%9A%87%E5%90%8EII-%EF%BC%88%E4%B8%80%E7%99%BE%E5%9B%9B%E5%8D%81%E5%9B%9B%EF%BC%89/"/>
       <url>2021/05/19/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-52-%E2%80%94%E2%80%94-N-%E7%9A%87%E5%90%8EII-%EF%BC%88%E4%B8%80%E7%99%BE%E5%9B%9B%E5%8D%81%E5%9B%9B%EF%BC%89/</url>
