@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 56 —— 合并区间（一百四十八）</title>
+      <link href="2021/05/22/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-56-%E2%80%94%E2%80%94-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4%EF%BC%88%E4%B8%80%E7%99%BE%E5%9B%9B%E5%8D%81%E5%85%AB%EF%BC%89/"/>
+      <url>2021/05/22/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-56-%E2%80%94%E2%80%94-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4%EF%BC%88%E4%B8%80%E7%99%BE%E5%9B%9B%E5%8D%81%E5%85%AB%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] = [starti, endi] 。请你合并所有重叠的区间，并返回一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1：</p><p>输入：intervals = [[1,3],[2,6],[8,10],[15,18]]<br>输出：[[1,6],[8,10],[15,18]]<br>解释：区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].<br>示例 2：</p><p>输入：intervals = [[1,4],[4,5]]<br>输出：[[1,5]]<br>解释：区间 [1,4] 和 [4,5] 可被视为重叠区间。</p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>1 &lt;= intervals.length &lt;= 10^4<br>intervals[i].length == 2<br>0 &lt;= start[i] &lt;= end[i] &lt;= 10^4</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题是将重复区间进行合并，最终得出有效的合并后区间。</p><p>首先，看下图:</p><p><img src="/2021/05/22/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-56-%E2%80%94%E2%80%94-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4%EF%BC%88%E4%B8%80%E7%99%BE%E5%9B%9B%E5%8D%81%E5%85%AB%EF%BC%89/1.png" alt></p><p>根据上图，我们把1到5的区间最终分为了两段红色区间。</p><p>在解题思路上，我们需要将给出的区间按照左端点进行排序，如果左端点相同则按照右端点排序。</p><p>如果下一个区间的左端点小于等于上一个区间的右端点，说明有交集，需要合并以及更新右端点;否则不需要，保存当前的区间即可。</p><p>在实现上，我们可以设置一个临时的左右区间判断标识l和r，用于判断合并。</p><p>具体，请看代码和注释。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">merge</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; intervals)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//按左端点排序，如果下一个区间的左端点小于等于上一个区间的右端点，说明有交集，则需要合并，更新右端点;否则不需要,保存当前区间即可。</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">        <span class="keyword">if</span>(intervals.empty()) <span class="keyword">return</span> res;</span><br><span class="line"></span><br><span class="line">        sort(intervals.begin(),intervals.end());<span class="comment">//排序</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> l = intervals[<span class="number">0</span>][<span class="number">0</span>], r = intervals[<span class="number">0</span>][<span class="number">1</span>];<span class="comment">//设置一个临时的l和r，用于更新和合并。</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; intervals.size(); i++)&#123;</span><br><span class="line">            <span class="comment">//i可以用1开始，因为第一个区间的左右端点都有了，不需要再次进行遍历</span></span><br><span class="line">            <span class="keyword">if</span>(intervals[i][<span class="number">0</span>] &gt; r)&#123;</span><br><span class="line">                <span class="comment">//当第二个区间左端点大于第一个区间的右端点，则说明，第一个区间直接可以保存即可</span></span><br><span class="line">                res.push_back(&#123;l, r&#125;);</span><br><span class="line">                l = intervals[i][<span class="number">0</span>], r = intervals[i][<span class="number">1</span>];</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                r = max(r,intervals[i][<span class="number">1</span>]);<span class="comment">//右端点更新为最大值即可 </span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res.push_back(&#123;l, r&#125;);<span class="comment">//最后一个区间在更新完l和r之后就没有保存了，需要在for循环外面将其加上。</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 55 —— 跳跃游戏（一百四十七）</title>
       <link href="2021/05/21/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-55-%E2%80%94%E2%80%94-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F%EF%BC%88%E4%B8%80%E7%99%BE%E5%9B%9B%E5%8D%81%E4%B8%83%EF%BC%89/"/>
       <url>2021/05/21/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-55-%E2%80%94%E2%80%94-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F%EF%BC%88%E4%B8%80%E7%99%BE%E5%9B%9B%E5%8D%81%E4%B8%83%EF%BC%89/</url>
