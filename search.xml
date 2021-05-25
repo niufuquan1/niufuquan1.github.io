@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 59 —— 螺旋矩阵II（一百五十一）</title>
+      <link href="2021/05/25/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-59-%E2%80%94%E2%80%94-%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5II%EF%BC%88%E4%B8%80%E7%99%BE%E4%BA%94%E5%8D%81%E4%B8%80%EF%BC%89/"/>
+      <url>2021/05/25/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-59-%E2%80%94%E2%80%94-%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5II%EF%BC%88%E4%B8%80%E7%99%BE%E4%BA%94%E5%8D%81%E4%B8%80%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给你一个正整数 n ，生成一个包含 1 到 n^2 所有元素，且元素按顺时针顺序螺旋排列的 n x n 正方形矩阵 matrix 。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1：</p><p><img src="/2021/05/25/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-59-%E2%80%94%E2%80%94-%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5II%EF%BC%88%E4%B8%80%E7%99%BE%E4%BA%94%E5%8D%81%E4%B8%80%EF%BC%89/1.png" alt></p><p>输入：n = 3<br>输出：[[1,2,3],[8,9,4],[7,6,5]]</p><p>示例 2：</p><p>输入：n = 1<br>输出：[[1]]</p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>1 &lt;= n &lt;= 20</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题和lc54思路一致，不同之处在于本题是需要填入数字。</p><p>在方法上，我们定义按照顺时针的顺序排布的方向数组，然后进行遍历。这里仅需要注意一下边界问题就好，即给出的元素坐标都应该在[0,n]以内，且保证格子中没有填入时，就填入当前遍历的值。</p><p>具体，请看代码。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">generateMatrix</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">res</span><span class="params">(n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n))</span></span>;</span><br><span class="line">        <span class="keyword">int</span> dx[] = &#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">-1</span>&#125;, dy[] = &#123;<span class="number">1</span>,<span class="number">0</span>,<span class="number">-1</span>,<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>, x = <span class="number">0</span>, y = <span class="number">0</span>, d = <span class="number">0</span>; i &lt;= n * n; i++)&#123;</span><br><span class="line">            res[x][y] = i;</span><br><span class="line">            <span class="keyword">int</span> a = x + dx[d], b = y + dy[d];</span><br><span class="line">            <span class="keyword">if</span>(a &gt;= n || a &lt; <span class="number">0</span> || b &gt;= n || b &lt; <span class="number">0</span> || res[a][b])&#123;</span><br><span class="line">                d = (d + <span class="number">1</span>) % <span class="number">4</span>;</span><br><span class="line">                a = x + dx[d], b = y + dy[d];</span><br><span class="line">            &#125;</span><br><span class="line">            x = a, y = b;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 58 —— 最后一个单词长度（一百五十）</title>
       <link href="2021/05/24/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-58-%E2%80%94%E2%80%94-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%8D%95%E8%AF%8D%E9%95%BF%E5%BA%A6%EF%BC%88%E4%B8%80%E7%99%BE%E4%BA%94%E5%8D%81%EF%BC%89/"/>
       <url>2021/05/24/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-58-%E2%80%94%E2%80%94-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%8D%95%E8%AF%8D%E9%95%BF%E5%BA%A6%EF%BC%88%E4%B8%80%E7%99%BE%E4%BA%94%E5%8D%81%EF%BC%89/</url>
