@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 70 —— 爬楼梯（一百六十二）</title>
+      <link href="2021/06/05/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-70-%E2%80%94%E2%80%94-%E7%88%AC%E6%A5%BC%E6%A2%AF%EF%BC%88%E4%B8%80%E7%99%BE%E5%85%AD%E5%8D%81%E4%BA%8C%EF%BC%89/"/>
+      <url>2021/06/05/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-70-%E2%80%94%E2%80%94-%E7%88%AC%E6%A5%BC%E6%A2%AF%EF%BC%88%E4%B8%80%E7%99%BE%E5%85%AD%E5%8D%81%E4%BA%8C%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>假设你正在爬楼梯。需要 <em>n</em> 阶你才能到达楼顶。</p><p>每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p><p><strong>注意：</strong>给定 <em>n</em> 是一个正整数。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1：</p><p>输入： 2<br>输出： 2<br>解释： 有两种方法可以爬到楼顶。</p><ol><li>1 阶 + 1 阶</li><li>2 阶<br>示例 2：</li></ol><p>输入： 3<br>输出： 3<br>解释： 有三种方法可以爬到楼顶。</p><ol><li>1 阶 + 1 阶 + 1 阶</li><li>1 阶 + 2 阶</li><li>2 阶 + 1 阶</li></ol><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题考查动态规划。</p><p>递推函数为：F(i) = F(i-1)+F(i - 2) ，且F(0) = 1，F(1) = 1。</p><p>这里，其实这个数列是一个斐波那契数列，我们直接求斐波那契数列也可。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">climbStairs</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//斐波那契数列。</span></span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">1</span>, b = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(--n)&#123;</span><br><span class="line">            <span class="keyword">int</span> c = a + b;</span><br><span class="line">            a = b, b = c;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 69 —— x的平方根（一百六十一）</title>
       <link href="2021/06/04/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-69-%E2%80%94%E2%80%94-x%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9%EF%BC%88%E4%B8%80%E7%99%BE%E5%85%AD%E5%8D%81%E4%B8%80%EF%BC%89/"/>
       <url>2021/06/04/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-69-%E2%80%94%E2%80%94-x%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9%EF%BC%88%E4%B8%80%E7%99%BE%E5%85%AD%E5%8D%81%E4%B8%80%EF%BC%89/</url>
