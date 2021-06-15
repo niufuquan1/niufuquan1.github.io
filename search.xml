@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 80 —— 删除排序数组中的重复项 II（一百七十二）</title>
+      <link href="2021/06/15/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-80-%E2%80%94%E2%80%94-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9-II%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%83%E5%8D%81%E4%BA%8C%EF%BC%89/"/>
+      <url>2021/06/15/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-80-%E2%80%94%E2%80%94-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9-II%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%83%E5%8D%81%E4%BA%8C%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给你一个有序数组 nums ，请你 原地 删除重复出现的元素，使每个元素 最多出现两次 ，返回删除后数组的新长度。</p><p>不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。</p><p>说明：</p><p>为什么返回数值是整数，但输出的答案是数组呢？</p><p>请注意，输入数组是以「引用」方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。</p><p>你可以想象内部操作如下:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝</span><br><span class="line">int len &#x3D; removeDuplicates(nums);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 在函数里修改输入数组对于调用者是可见的。</span><br><span class="line">&#x2F;&#x2F; 根据你的函数返回的长度, 它会打印出数组中 该长度范围内 的所有元素。</span><br><span class="line">for (int i &#x3D; 0; i &lt; len; i++) &#123;</span><br><span class="line">    print(nums[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1：</p><p>输入：nums = [1,1,1,2,2,3]<br>输出：5, nums = [1,1,2,2,3]<br>解释：函数应返回新长度 length = 5, 并且原数组的前五个元素被修改为 1, 1, 2, 2, 3 。 不需要考虑数组中超出新长度后面的元素。</p><p>示例 2：</p><p>输入：nums = [0,0,1,1,1,1,2,3,3]<br>输出：7, nums = [0,0,1,1,2,3,3]<br>解释：函数应返回新长度 length = 7, 并且原数组的前五个元素被修改为 0, 0, 1, 1, 2, 3, 3 。 不需要考虑数组中超出新长度后面的元素。</p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>1、1 &lt;= nums.length &lt;= 3 * 10^4<br>2、-10^4 &lt;= nums[i] &lt;= 10^4<br>3、nums 已按升序排列</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题可以采用双指针算法来求解。具体思路如下：</p><p>1、设指针i和j，i用于扫描整个数组，j代表有效数段的末尾，见下图：</p><p><img src="/2021/06/15/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-80-%E2%80%94%E2%80%94-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9-II%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%83%E5%8D%81%E4%BA%8C%EF%BC%89/1.png" alt></p><p>2、在具体操作上，i每向后扫描一个，由于数组是有序的，所以相同的数组一定挨在一起，因此可以判断nums[j-1]、nums[j-2]与nums[i]的关系，如果有效数段中已经存在了nums[i]，则i跳过；如果不存在，或者仅存在一个，则i指针代表的数添加入有效数段中，且i++，j++。</p><p>具体，请看代码。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">removeDuplicates</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;<span class="comment">//代表有效数段，就是将前k个位置上的数变为题目要求的内容即可</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i= <span class="number">0</span>;i&lt;nums.size();i++)&#123;</span><br><span class="line">          <span class="keyword">int</span> x = nums[i];</span><br><span class="line">            <span class="keyword">if</span>(j &lt; <span class="number">2</span> || (nums[j - <span class="number">1</span>] != x || nums[j - <span class="number">2</span>] != x))</span><br><span class="line">                nums[j++] = x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 79 —— 单词搜索（一百七十一）</title>
       <link href="2021/06/14/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-79-%E2%80%94%E2%80%94-%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%83%E5%8D%81%E4%B8%80%EF%BC%89/"/>
       <url>2021/06/14/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-79-%E2%80%94%E2%80%94-%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%83%E5%8D%81%E4%B8%80%EF%BC%89/</url>
