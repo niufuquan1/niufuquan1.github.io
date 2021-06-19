@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 83 —— 删除排序链表中的重复元素（一百七十五）</title>
+      <link href="2021/06/19/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-83-%E2%80%94%E2%80%94-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%83%E5%8D%81%E4%BA%94%EF%BC%89/"/>
+      <url>2021/06/19/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-83-%E2%80%94%E2%80%94-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%83%E5%8D%81%E4%BA%94%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>存在一个按升序排列的链表，给你这个链表的头节点 head ，请你删除所有重复的元素，使每个元素 只出现一次 。</p><p>返回同样按升序排列的结果链表。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1：</p><p><img src="/2021/06/19/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-83-%E2%80%94%E2%80%94-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%83%E5%8D%81%E4%BA%94%EF%BC%89/1.png" alt></p><p>输入：head = [1,1,2]<br>输出：[1,2]</p><p>示例 2：</p><p><img src="/2021/06/19/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-83-%E2%80%94%E2%80%94-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%83%E5%8D%81%E4%BA%94%EF%BC%89/2.png" alt></p><p>输入：head = [1,1,2,3,3]<br>输出：[1,2,3]</p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>1、链表中节点数目在范围 [0, 300] 内<br>2、-100 &lt;= Node.val &lt;= 100<br>3、题目数据保证链表已经按升序排列</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题考查线性扫描。首先，定义一个cur节点用于表示“新”链表的最后一个节点，然后定义一个扫描节点p。p每向后移动一个节点，判断节点值与cur的值的大小关系，如果一致，则让p继续移动，直到不一致时，让cur-&gt;next指向p，然后更新cur和p两个节点，依次循环直到结束。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode() : val(0), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">deleteDuplicates</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!head) <span class="keyword">return</span> head;</span><br><span class="line">        <span class="keyword">auto</span> cur = head;<span class="comment">//表示新链表的最后一个节点</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> p = head -&gt; next; p; p = p -&gt; next)&#123;</span><br><span class="line">            <span class="keyword">if</span>(cur -&gt; val != p -&gt; val)&#123;</span><br><span class="line">                <span class="comment">// cur = cur -&gt; next = p;</span></span><br><span class="line">                cur -&gt; next = p;</span><br><span class="line">                cur = cur -&gt; next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cur -&gt; next = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 82 —— 删除排序链表中的重复元素 II（一百七十四）</title>
       <link href="2021/06/17/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-82-%E2%80%94%E2%80%94-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0-II%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%83%E5%8D%81%E5%9B%9B%EF%BC%89/"/>
       <url>2021/06/17/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-82-%E2%80%94%E2%80%94-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0-II%EF%BC%88%E4%B8%80%E7%99%BE%E4%B8%83%E5%8D%81%E5%9B%9B%EF%BC%89/</url>
