@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 91 —— 解码方法（一百八十三）</title>
+      <link href="2021/07/04/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-91-%E2%80%94%E2%80%94-%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95%EF%BC%88%E4%B8%80%E7%99%BE%E5%85%AB%E5%8D%81%E4%B8%89%EF%BC%89/"/>
+      <url>2021/07/04/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-91-%E2%80%94%E2%80%94-%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95%EF%BC%88%E4%B8%80%E7%99%BE%E5%85%AB%E5%8D%81%E4%B8%89%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>一条包含字母 A-Z 的消息通过以下映射进行了 编码 ：</p><p>‘A’ -&gt; 1<br>‘B’ -&gt; 2<br>…<br>‘Z’ -&gt; 26<br>要 解码 已编码的消息，所有数字必须基于上述映射的方法，反向映射回字母（可能有多种方法）。例如，”11106” 可以映射为：</p><p>“AAJF” ，将消息分组为 (1 1 10 6)<br>“KJF” ，将消息分组为 (11 10 6)<br>注意，消息不能分组为  (1 11 06) ，因为 “06” 不能映射为 “F” ，这是由于 “6” 和 “06” 在映射中并不等价。</p><p>给你一个只含数字的 非空 字符串 s ，请计算并返回 解码 方法的 总数 。</p><p>题目数据保证答案肯定是一个 32 位 的整数。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1：</p><p>输入：s = “12”<br>输出：2<br>解释：它可以解码为 “AB”（1 2）或者 “L”（12）。</p><p>示例 2：</p><p>输入：s = “226”<br>输出：3<br>解释：它可以解码为 “BZ” (2 26), “VF” (22 6), 或者 “BBF” (2 2 6) 。</p><p>示例 3：</p><p>输入：s = “0”<br>输出：0<br>解释：没有字符映射到以 0 开头的数字。<br>含有 0 的有效映射是 ‘J’ -&gt; “10” 和 ‘T’-&gt; “20” 。<br>由于没有字符，因此没有有效的方法对此进行解码，因为所有数字都需要映射。</p><p>示例 4：</p><p>输入：s = “06”<br>输出：0<br>解释：”06” 不能映射到 “F” ，因为字符串含有前导 0（”6” 和 “06” 在映射中并不等价）。</p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>1、1 &lt;= s.length &lt;= 100<br>2、s 只包含数字，并且可能包含前导零。</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题考查DP问题，即动态规划。</p><p>首先，定义状态表示函数F(i)，其表示所有前i个字符，可以解回去的字符串的集合，其结果值表示集合的个数。</p><p>然后，我们可以将其集合分成两个部分进行递推，即结尾有一位数字和结尾有两位数字两种情况。</p><p>1、当结尾有一位数字时，那么f(i) = f(i-1)，因为最后一位确定的情况下，方案数就是前面i-1位方案数的数量。</p><p>2、当结尾有两位数字时，那么f(i) = f(i-2)，因为最后两位确定的情况下，方案数就是前面i-2位方案数的数量。</p><p>所以最终f(i) = f(i - 1)  + f(i - 2)。</p><p>这个题与爬楼梯很类似，但是需要注意的是，我们要把两位数字的条件判断清楚，当最后两位数字超过26时，只能存在最后一位的情况。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numDecodings</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (s.empty()) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">f</span><span class="params">(n + <span class="number">1</span>)</span></span>;</span><br><span class="line">        f[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (s[i - <span class="number">1</span>] &lt; <span class="string">&#x27;0&#x27;</span> || s[i - <span class="number">1</span>] &gt; <span class="string">&#x27;9&#x27;</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            f[i] = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span> (s[i - <span class="number">1</span>] != <span class="string">&#x27;0&#x27;</span>) f[i] = f[i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (i &gt; <span class="number">1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> t = (s[i<span class="number">-2</span>]-<span class="string">&#x27;0&#x27;</span>)*<span class="number">10</span>+s[i<span class="number">-1</span>]-<span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">                <span class="keyword">if</span> (t &gt;= <span class="number">10</span> &amp;&amp; t &lt;= <span class="number">26</span>)</span><br><span class="line">                    f[i] += f[i - <span class="number">2</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 90 —— 子集II（一百八十二）</title>
       <link href="2021/06/27/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-90-%E2%80%94%E2%80%94-%E5%AD%90%E9%9B%86II%EF%BC%88%E4%B8%80%E7%99%BE%E5%85%AB%E5%8D%81%E4%BA%8C%EF%BC%89/"/>
       <url>2021/06/27/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-90-%E2%80%94%E2%80%94-%E5%AD%90%E9%9B%86II%EF%BC%88%E4%B8%80%E7%99%BE%E5%85%AB%E5%8D%81%E4%BA%8C%EF%BC%89/</url>
