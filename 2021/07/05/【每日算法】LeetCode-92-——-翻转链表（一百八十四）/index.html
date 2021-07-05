@@ -27,6 +27,7 @@
 <h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>1、链表中节点数目为 n<br>2、1 &lt;= n &lt;= 500<br>3、-500 &lt;= Node.val &lt;= 500<br>4、1 &lt;= left &lt;= right &lt;= n</p>
 <h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题考查链表的操作，因此采用画图的思路求解最方便，模拟一下这个过程然后敲代码就行了。</p>
 <p>具体思路就如下图所示：</p>
+<p><img src="/2021/07/05/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-92-%E2%80%94%E2%80%94-%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8%EF%BC%88%E4%B8%80%E7%99%BE%E5%85%AB%E5%8D%81%E5%9B%9B%EF%BC%89/2.png" alt></p>
 <p>1、首先，获得left指针的节点和right指针的节点以及left指针前一个节点</p>
 <p>2、然后将left和right内部的指针指向翻转</p>
 <p>3、然后将left前一个节点指向right，将left的下一个节点指向right的下一个节点</p>
