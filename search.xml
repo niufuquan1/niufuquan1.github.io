@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 96 —— 不同的二叉搜索树（一百八十八）</title>
+      <link href="2021/07/09/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-96-%E2%80%94%E2%80%94-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%EF%BC%88%E4%B8%80%E7%99%BE%E5%85%AB%E5%8D%81%E5%85%AB%EF%BC%89/"/>
+      <url>2021/07/09/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-96-%E2%80%94%E2%80%94-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%EF%BC%88%E4%B8%80%E7%99%BE%E5%85%AB%E5%8D%81%E5%85%AB%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给你一个整数 n ，求恰由 n 个节点组成且节点值从 1 到 n 互不相同的 二叉搜索树 有多少种？返回满足题意的二叉搜索树的种数。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1：</p><p>输入：n = 3<br>输出：5</p><p>示例 2：</p><p>输入：n = 1<br>输出：1</p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>1 &lt;= n &lt;= 19</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题因为仅求方案数，且可以通过求解子问题递推出最终答案，因此采用动态规划方法求解。</p><p>1、状态表示：F(n)表示n个节点的二叉搜索树的方案数量</p><p>2、状态转移：左子树可能有0,1,2, … , n-1个节点，对应的右子树有n-1,n-2,n-3, … , 个节点，F(n)是上述全部情况的加和。</p><p>即：F[n] = ΣF(k) x F(n-1-k) ,k从0到n-1。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numTrees</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">f</span><span class="params">(n+<span class="number">1</span>)</span></span>;</span><br><span class="line">        f[<span class="number">0</span>] =<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>;j&lt;=i;j++)&#123;</span><br><span class="line">                f[i] += f[j<span class="number">-1</span>]*f[i-j];</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 95 —— 不同的二叉搜索树II（一百八十七）</title>
       <link href="2021/07/08/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-95-%E2%80%94%E2%80%94-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91II%EF%BC%88%E4%B8%80%E7%99%BE%E5%85%AB%E5%8D%81%E4%B8%83%EF%BC%89/"/>
       <url>2021/07/08/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-95-%E2%80%94%E2%80%94-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91II%EF%BC%88%E4%B8%80%E7%99%BE%E5%85%AB%E5%8D%81%E4%B8%83%EF%BC%89/</url>
