@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 115 —— 不同的子序列（二百零七）</title>
+      <link href="2021/08/01/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-115-%E2%80%94%E2%80%94-%E4%B8%8D%E5%90%8C%E7%9A%84%E5%AD%90%E5%BA%8F%E5%88%97%EF%BC%88%E4%BA%8C%E7%99%BE%E9%9B%B6%E4%B8%83%EF%BC%89/"/>
+      <url>2021/08/01/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-115-%E2%80%94%E2%80%94-%E4%B8%8D%E5%90%8C%E7%9A%84%E5%AD%90%E5%BA%8F%E5%88%97%EF%BC%88%E4%BA%8C%E7%99%BE%E9%9B%B6%E4%B8%83%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给定一个字符串 s 和一个字符串 t ，计算在 s 的子序列中 t 出现的个数。</p><p>字符串的一个 子序列 是指，通过删除一些（也可以不删除）字符且不干扰剩余字符相对位置所组成的新字符串。（例如，”ACE” 是 “ABCDE” 的一个子序列，而 “AEC” 不是）</p><p>题目数据保证答案符合 32 位带符号整数范围。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1：</p><p>输入：s = “rabbbit”, t = “rabbit”<br>输出：3<br>解释：<br>如下图所示, 有 3 种可以从 s 中得到 “rabbit” 的方案。<br><strong>rabb</strong>b<strong>it</strong><br><strong>ra</strong>b<strong>bbit</strong><br><strong>rab</strong>b<strong>bit</strong></p><p>示例 2：</p><p>输入：s = “babgbag”, t = “bag”<br>输出：5<br>解释：<br>如下图所示, 有 5 种可以从 s 中得到 “bag” 的方案。<br><strong>ba</strong>b<strong>g</strong>bag<br><strong>ba</strong>bgba<strong>g</strong><br><strong>b</strong>abgb<strong>ag</strong><br>ba<strong>b</strong>gb<strong>ag</strong><br>babg<strong>bag</strong></p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>1、0 &lt;= s.length, t.length &lt;= 1000<br>2、s 和 t 由英文字母组成</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题考查动态规划。具体来说，对题目我们可以换一种方式来理解，即使用S中的字符按顺序匹配T中的字符，求有多少种方式匹配成功。</p><p>具体动归思路如下：</p><p>1、状态表示</p><p>定义F<code>[i][j]</code> 表示S串1到i的所有和T串1到j相等的子序列的所有匹配方式的数量。</p><p>2、状态计算</p><p>（1）当选择S[i]时，F<code>[i][j]</code> = F<code>[i-1][j-1]</code></p><p>（2）当不选择S[i]，F<code>[i][j]</code> = F<code>[i-1][j]</code></p><p>时间复杂度为O(n^2)。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numDistinct</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size(),m = t.size();<span class="comment">//求两个串的长度</span></span><br><span class="line">        s = <span class="string">&#x27; &#x27;</span> + s, t = <span class="string">&#x27; &#x27;</span>+t;<span class="comment">//保证下标从1开始</span></span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span>&gt;&gt; <span class="title">f</span><span class="params">(n+<span class="number">1</span>,<span class="built_in">vector</span>&lt;<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span>&gt;(m+<span class="number">1</span>))</span></span>;<span class="comment">//为了防止计算中间过程中的边界溢出</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;=n;i++) f[i][<span class="number">0</span>] = <span class="number">1</span>;<span class="comment">//初始化当T串长度为0时的情况，各情况数量均为1</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j&lt;=m; j++)&#123;</span><br><span class="line">                f[i][j] = f[i<span class="number">-1</span>][j];</span><br><span class="line">                <span class="keyword">if</span>(s[i] == t[j]) f[i][j] += f[i<span class="number">-1</span>][j<span class="number">-1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n][m];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 114 —— 二叉树展开为链表（二百零六）</title>
       <link href="2021/07/31/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-114-%E2%80%94%E2%80%94-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%95%E5%BC%80%E4%B8%BA%E9%93%BE%E8%A1%A8%EF%BC%88%E4%BA%8C%E7%99%BE%E9%9B%B6%E5%85%AD%EF%BC%89/"/>
       <url>2021/07/31/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-114-%E2%80%94%E2%80%94-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%95%E5%BC%80%E4%B8%BA%E9%93%BE%E8%A1%A8%EF%BC%88%E4%BA%8C%E7%99%BE%E9%9B%B6%E5%85%AD%EF%BC%89/</url>
