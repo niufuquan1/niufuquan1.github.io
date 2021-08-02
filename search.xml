@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 116 —— 填充每个节点的下一个右侧节点指针（二百零八）</title>
+      <link href="2021/08/02/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-116-%E2%80%94%E2%80%94-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88%EF%BC%88%E4%BA%8C%E7%99%BE%E9%9B%B6%E5%85%AB%EF%BC%89/"/>
+      <url>2021/08/02/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-116-%E2%80%94%E2%80%94-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88%EF%BC%88%E4%BA%8C%E7%99%BE%E9%9B%B6%E5%85%AB%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给定一个 完美二叉树 ，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：</p><p>struct Node {<br>  int val;<br>  Node <em>left;<br>  Node </em>right;<br>  Node *next;<br>}<br>填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。</p><p>初始状态下，所有 next 指针都被设置为 NULL。 </p><p>进阶：</p><p>1、你只能使用常量级额外空间。<br>2、使用递归解题也符合要求，本题中递归程序占用的栈空间不算做额外的空间复杂度。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例：</p><p><img src="/2021/08/02/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-116-%E2%80%94%E2%80%94-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88%EF%BC%88%E4%BA%8C%E7%99%BE%E9%9B%B6%E5%85%AB%EF%BC%89/1.png" alt></p><p>输入：root = [1,2,3,4,5,6,7]<br>输出：[1,#,2,3,#,4,5,6,7,#]<br>解释：给定二叉树如图 A 所示，你的函数应该填充它的每个 next 指针，以指向其下一个右侧节点，如图 B 所示。序列化的输出按层序遍历排列，同一层节点由 next 指针连接，’#’ 标志着每一层的结束。</p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>1、树中节点的数量少于 4096<br>2、-1000 &lt;= node.val &lt;= 1000</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题考查BFS，即宽度优先搜索。</p><p>在思路上，首先从根开始进行宽搜，每次遍历一层，且按照从左到右的顺序。然后对于每一个节点来说，左儿子指向右儿子，右儿子指向根的下一个节点的左儿子。最后，每一层的最后一个节点指向NULL。</p><p>由于宽搜每个节点仅遍历一次，遍历时指针修改的时间复杂度为O(1)，因此整体的时间复杂度为O(n)。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">// Definition for a Node.</span></span><br><span class="line"><span class="comment">class Node &#123;</span></span><br><span class="line"><span class="comment">public:</span></span><br><span class="line"><span class="comment">    int val;</span></span><br><span class="line"><span class="comment">    Node* left;</span></span><br><span class="line"><span class="comment">    Node* right;</span></span><br><span class="line"><span class="comment">    Node* next;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    Node() : val(0), left(NULL), right(NULL), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    Node(int _val) : val(_val), left(NULL), right(NULL), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    Node(int _val, Node* _left, Node* _right, Node* _next)</span></span><br><span class="line"><span class="comment">        : val(_val), left(_left), right(_right), next(_next) &#123;&#125;</span></span><br><span class="line"><span class="comment">&#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Node* <span class="title">connect</span><span class="params">(Node* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> root;<span class="comment">//节点为空，直接返回</span></span><br><span class="line">        <span class="keyword">auto</span> root_ = root;<span class="comment">//最后返回的节点指针要保存</span></span><br><span class="line">        <span class="keyword">while</span>(root-&gt;left)&#123;<span class="comment">//开始每层进行遍历，每次从根的左儿子开始</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> p = root;p;p=p-&gt;next)&#123;</span><br><span class="line">                p-&gt;left-&gt;next = p-&gt;right;</span><br><span class="line">                <span class="keyword">if</span>(p-&gt;next) p-&gt;right-&gt;next = p-&gt;next-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line">            root=root-&gt;left;<span class="comment">//更新根节点</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root_;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 115 —— 不同的子序列（二百零七）</title>
       <link href="2021/08/01/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-115-%E2%80%94%E2%80%94-%E4%B8%8D%E5%90%8C%E7%9A%84%E5%AD%90%E5%BA%8F%E5%88%97%EF%BC%88%E4%BA%8C%E7%99%BE%E9%9B%B6%E4%B8%83%EF%BC%89/"/>
       <url>2021/08/01/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-115-%E2%80%94%E2%80%94-%E4%B8%8D%E5%90%8C%E7%9A%84%E5%AD%90%E5%BA%8F%E5%88%97%EF%BC%88%E4%BA%8C%E7%99%BE%E9%9B%B6%E4%B8%83%EF%BC%89/</url>
