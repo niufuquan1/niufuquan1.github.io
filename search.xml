@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 118 —— 杨辉三角（二百一十）</title>
+      <link href="2021/08/04/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-118-%E2%80%94%E2%80%94-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%80%E5%8D%81%EF%BC%89/"/>
+      <url>2021/08/04/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-118-%E2%80%94%E2%80%94-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%80%E5%8D%81%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给定一个非负整数 <em><code>numRows</code>，</em>生成「杨辉三角」的前 <em><code>numRows</code></em> 行。</p><p>在「杨辉三角」中，每个数是它左上方和右上方的数的和。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1:</p><p><img src="/2021/08/04/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-118-%E2%80%94%E2%80%94-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%80%E5%8D%81%EF%BC%89/1.png" alt></p><p>输入: numRows = 5<br>输出: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]</p><p>示例 2:</p><p>输入: numRows = 1<br>输出: [[1]]</p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>1、1 &lt;= numRows &lt;= 30</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>通过杨辉三角的规则，然后进行递归关系式子的表达：F[i,j] = F[i-1,j-1]+F[i-1,j]。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">generate</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; f;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">line</span><span class="params">(i + <span class="number">1</span>)</span></span>;</span><br><span class="line">            line[<span class="number">0</span>] = line[i] = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; i; j++)</span><br><span class="line">                line[j] = f[i<span class="number">-1</span>][j<span class="number">-1</span>] + f[i<span class="number">-1</span>][j];</span><br><span class="line">            f.push_back(line);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 117 —— 填充每个节点的下一个右侧节点指针II（二百零九）</title>
       <link href="2021/08/03/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-117-%E2%80%94%E2%80%94-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88II%EF%BC%88%E4%BA%8C%E7%99%BE%E9%9B%B6%E4%B9%9D%EF%BC%89/"/>
       <url>2021/08/03/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-117-%E2%80%94%E2%80%94-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88II%EF%BC%88%E4%BA%8C%E7%99%BE%E9%9B%B6%E4%B9%9D%EF%BC%89/</url>
