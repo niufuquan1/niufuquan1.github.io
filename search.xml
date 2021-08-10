@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 122 —— 买卖股票的最佳时机II（二百一十四）</title>
+      <link href="2021/08/10/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-122-%E2%80%94%E2%80%94-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAII%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%80%E5%8D%81%E5%9B%9B%EF%BC%89/"/>
+      <url>2021/08/10/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-122-%E2%80%94%E2%80%94-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAII%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%80%E5%8D%81%E5%9B%9B%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给定一个数组 prices ，其中 prices[i] 是一支给定股票第 i 天的价格。</p><p>设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。</p><p>注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1:</p><p>输入: prices = [7,1,5,3,6,4]<br>输出: 7<br>解释: 在第 2 天（股票价格 = 1）的时候买入，在第 3 天（股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。<br>     随后，在第 4 天（股票价格 = 3）的时候买入，在第 5 天（股票价格 = 6）的时候卖出, 这笔交易所能获得利润 = 6-3 = 3 。</p><p>示例 2:</p><p>输入: prices = [1,2,3,4,5]<br>输出: 4<br>解释: 在第 1 天（股票价格 = 1）的时候买入，在第 5 天 （股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。<br>     注意你不能在第 1 天和第 2 天接连购买股票，之后再将它们卖出。因为这样属于同时参与了多笔交易，你必须在再次购买前出售掉之前的股票。</p><p>示例 3:</p><p>输入: prices = [7,6,4,3,1]<br>输出: 0<br>解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。</p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>1、1 &lt;= prices.length &lt;= 3 * 10^4<br>2、0 &lt;= prices[i] &lt;= 10^4</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题的核心考查点在于交易的分解。先看一张图：</p><p><img src="/2021/08/10/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-122-%E2%80%94%E2%80%94-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAII%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%80%E5%8D%81%E5%9B%9B%EF%BC%89/1.png" alt></p><p>图中，横轴坐标代表每天的交易价格，可以发现，在i点买入，在j点卖出的利润，相当于i到j的一段中的小操作之和，即：(设P为每天交易价格)</p><p>P(j)-P(i) = (P(i+1) - P(i)) + (P(i+2) - P(i+1)) + (P(i+3) - P(i+2)) + … + (P(j) - P(j-1))</p><p>因此，我们只需要将每天交易的利润为正值的部分全部算出来并加起来，就是最终的答案。</p><p>具体，看代码。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>;i + <span class="number">1</span> &lt; prices.size(); i++)&#123;</span><br><span class="line">            res += max(<span class="number">0</span>,prices[i+<span class="number">1</span>] - prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 121 —— 买卖股票的最佳时机（二百一十三）</title>
       <link href="2021/08/08/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-121-%E2%80%94%E2%80%94-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%80%E5%8D%81%E4%B8%89%EF%BC%89/"/>
       <url>2021/08/08/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-121-%E2%80%94%E2%80%94-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%80%E5%8D%81%E4%B8%89%EF%BC%89/</url>
