@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 132 —— 分割回文串II（二百二十二）</title>
+      <link href="2021/08/24/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-132-%E2%80%94%E2%80%94-%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E4%B8%B2II%EF%BC%88%E4%BA%8C%E7%99%BE%E4%BA%8C%E5%8D%81%E4%BA%8C%EF%BC%89/"/>
+      <url>2021/08/24/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-132-%E2%80%94%E2%80%94-%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E4%B8%B2II%EF%BC%88%E4%BA%8C%E7%99%BE%E4%BA%8C%E5%8D%81%E4%BA%8C%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给你一个字符串 s，请你将 s 分割成一些子串，使每个子串都是回文。</p><p>返回符合要求的 最少分割次数 。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1：</p><p>输入：s = “aab”<br>输出：1<br>解释：只需一次分割就可将 s 分割成 [“aa”,”b”] 这样两个回文子串。</p><p>示例 2：</p><p>输入：s = “a”<br>输出：0</p><p>示例 3：</p><p>输入：s = “ab”<br>输出：1</p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>1、1 &lt;= s.length &lt;= 2000<br>2、s 仅由小写英文字母组成</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题考查动态规划。</p><p>首先，确定状态表示。设F[i]表示S[1-i]的所有分割方案的中步骤的最小值。</p><p>然后，确定状态计算。根据最后一个部分的划分范围，将集合分为1到i，2到i，3到i，…，i到i，i个部分。因此递推关系式可以为：当最后一段确定为k到i时，那么F[i]  =  F[k-1] + 1，在答案中去全局最小值即可。</p><p>另外，为了快速判断某一段是否是回文串，我们还是要沿用前一道题的预处理的方法，用布尔数组把字符串的回文串情况预处理出来。</p><p>具体，请看代码。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minCut</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        s = <span class="string">&#x27; &#x27;</span>+ s;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&gt; <span class="title">g</span><span class="params">(n+<span class="number">1</span>,<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;(n+<span class="number">1</span>))</span></span>;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">f</span><span class="params">(n+<span class="number">1</span>,<span class="number">1e8</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j&lt;=n; j++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i == j)g[i][j] = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(s[i] == s[j])&#123;</span><br><span class="line">                    <span class="keyword">if</span>(i+<span class="number">1</span> &gt; j<span class="number">-1</span>||g[i+<span class="number">1</span>][j<span class="number">-1</span>]) g[i][j] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        f[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= i ;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(g[j][i])&#123;</span><br><span class="line">                    f[i] = min(f[i],f[j<span class="number">-1</span>]+<span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n] - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 131 —— 分割回文串（二百二十一）</title>
       <link href="2021/08/23/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-131-%E2%80%94%E2%80%94-%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E4%B8%B2%EF%BC%88%E4%BA%8C%E7%99%BE%E4%BA%8C%E5%8D%81%E4%B8%80%EF%BC%89/"/>
       <url>2021/08/23/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-131-%E2%80%94%E2%80%94-%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E4%B8%B2%EF%BC%88%E4%BA%8C%E7%99%BE%E4%BA%8C%E5%8D%81%E4%B8%80%EF%BC%89/</url>
