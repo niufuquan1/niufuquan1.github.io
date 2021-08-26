@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 134 —— 加油站（二百二十四）</title>
+      <link href="2021/08/26/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-134-%E2%80%94%E2%80%94-%E5%8A%A0%E6%B2%B9%E7%AB%99%EF%BC%88%E4%BA%8C%E7%99%BE%E4%BA%8C%E5%8D%81%E5%9B%9B%EF%BC%89/"/>
+      <url>2021/08/26/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-134-%E2%80%94%E2%80%94-%E5%8A%A0%E6%B2%B9%E7%AB%99%EF%BC%88%E4%BA%8C%E7%99%BE%E4%BA%8C%E5%8D%81%E5%9B%9B%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>在一条环路上有 N 个加油站，其中第 i 个加油站有汽油 gas[i] 升。</p><p>你有一辆油箱容量无限的的汽车，从第 i 个加油站开往第 i+1 个加油站需要消耗汽油 cost[i] 升。你从其中的一个加油站出发，开始时油箱为空。</p><p>如果你可以绕环路行驶一周，则返回出发时加油站的编号，否则返回 -1。</p><p>说明: </p><p>1、如果题目有解，该答案即为唯一答案。<br>2、输入数组均为非空数组，且长度相同。<br>3、输入数组中的元素均为非负数。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1:</p><p>输入:<br>gas  = [1,2,3,4,5]<br>cost = [3,4,5,1,2]</p><p>输出: 3</p><p>解释:<br>从 3 号加油站(索引为 3 处)出发，可获得 4 升汽油。此时油箱有 = 0 + 4 = 4 升汽油<br>开往 4 号加油站，此时油箱有 4 - 1 + 5 = 8 升汽油<br>开往 0 号加油站，此时油箱有 8 - 2 + 1 = 7 升汽油<br>开往 1 号加油站，此时油箱有 7 - 3 + 2 = 6 升汽油<br>开往 2 号加油站，此时油箱有 6 - 4 + 3 = 5 升汽油<br>开往 3 号加油站，你需要消耗 5 升汽油，正好足够你返回到 3 号加油站。<br>因此，3 可为起始索引。</p><p>示例 2:</p><p>输入:<br>gas  = [2,3,4]<br>cost = [3,4,3]</p><p>输出: -1</p><p>解释:<br>你不能从 0 号或 1 号加油站出发，因为没有足够的汽油可以让你行驶到下一个加油站。<br>我们从 2 号加油站出发，可以获得 4 升汽油。 此时油箱有 = 0 + 4 = 4 升汽油<br>开往 0 号加油站，此时油箱有 4 - 3 + 2 = 3 升汽油<br>开往 1 号加油站，此时油箱有 3 - 3 + 3 = 3 升汽油<br>你无法返回 2 号加油站，因为返程需要消耗 4 升汽油，但是你的油箱只有 3 升汽油。<br>因此，无论怎样，你都不可能绕环路行驶一周。</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题考虑贪心的思想求解。具体，我们需要枚举每一个始发点，然后根据题中的设定，依次判断车是否能行驶到下一个加油点。同时，在这里，我们有一个优化，具体看下图：</p><p><img src="/2021/08/26/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-134-%E2%80%94%E2%80%94-%E5%8A%A0%E6%B2%B9%E7%AB%99%EF%BC%88%E4%BA%8C%E7%99%BE%E4%BA%8C%E5%8D%81%E5%9B%9B%EF%BC%89/1.png" alt></p><p>就是说，当从i出发，到j时，无法行驶到j+1的时候，那么在i到j中间的任何一个点都不可能走到j+1。具体，我来解释一下。很简单，当我们从i走到k的时候，车的油量一定是大于等于0，在这种情况下是走不到第j+1个站的。那，当从k点开始走，刚开始没有油，那么更加走不到第j+1个站了。因此这里我们就可以优化一部分的枚举过程。</p><p>具体，请看代码。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">canCompleteCircuit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; gas, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; cost)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = gas.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>,j;i&lt;n;)&#123;<span class="comment">//枚举起点</span></span><br><span class="line">            <span class="keyword">int</span> left=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; n; j++)&#123; <span class="comment">//枚举走几站</span></span><br><span class="line">                <span class="keyword">int</span> k = (i + j) % n;</span><br><span class="line">                left += gas[k] - cost[k];</span><br><span class="line">                <span class="keyword">if</span>(left &lt; <span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="comment">//只有存在剩余油或刚好用完才能过去，如果是负的，说明过不去，直接退出第二层循环。</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(j == n)&#123;</span><br><span class="line">                <span class="comment">//存在的话，直接返回该点坐标</span></span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">            i = i+j+<span class="number">1</span>;<span class="comment">//这里就是剪枝，将起点直接跳到j+1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 133 —— 克隆图（二百二十三）</title>
       <link href="2021/08/25/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-133-%E2%80%94%E2%80%94-%E5%85%8B%E9%9A%86%E5%9B%BE%EF%BC%88%E4%BA%8C%E7%99%BE%E4%BA%8C%E5%8D%81%E4%B8%89%EF%BC%89/"/>
       <url>2021/08/25/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-133-%E2%80%94%E2%80%94-%E5%85%8B%E9%9A%86%E5%9B%BE%EF%BC%88%E4%BA%8C%E7%99%BE%E4%BA%8C%E5%8D%81%E4%B8%89%EF%BC%89/</url>
