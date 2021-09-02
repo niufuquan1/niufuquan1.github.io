@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 141 —— 环形链表（二百三十一）</title>
+      <link href="2021/09/02/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-141-%E2%80%94%E2%80%94-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%89%E5%8D%81%E4%B8%80%EF%BC%89/"/>
+      <url>2021/09/02/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-141-%E2%80%94%E2%80%94-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%89%E5%8D%81%E4%B8%80%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给定一个链表，判断链表中是否有环。</p><p>如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。</p><p>如果链表中存在环，则返回 true 。 否则，返回 false 。</p><p> 用 O(1)（即，常量）内存解决此问题。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1：</p><p><img src="/2021/09/02/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-141-%E2%80%94%E2%80%94-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%89%E5%8D%81%E4%B8%80%EF%BC%89/1.png" alt></p><p>输入：head = [3,2,0,-4], pos = 1<br>输出：true<br>解释：链表中有一个环，其尾部连接到第二个节点。</p><p>示例 2：</p><p><img src="/2021/09/02/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-141-%E2%80%94%E2%80%94-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%89%E5%8D%81%E4%B8%80%EF%BC%89/2.png" alt></p><p>输入：head = [1,2], pos = 0<br>输出：true<br>解释：链表中有一个环，其尾部连接到第一个节点。</p><p>示例 3：</p><p><img src="/2021/09/02/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-141-%E2%80%94%E2%80%94-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%89%E5%8D%81%E4%B8%80%EF%BC%89/3.png" alt></p><p>输入：head = [1], pos = -1<br>输出：false<br>解释：链表中没有环。</p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>1、链表中节点的数目范围是 [0, 10^4]<br>2、-10^5 &lt;= Node.val &lt;= 10^5<br>3、pos 为 -1 或者链表中的一个 有效索引 。</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题采用双指针算法求解。</p><p>定义两个指针，i和j，i每次往前走一步，j每次往前走两步。当j指针走到了null，说明链表中无环。当j与i指针相遇时，说明存在环。</p><p>这里解释一下，为什么i指针和j指针一定会相遇：</p><p>假设给出的链表存在一个环，那么i走到环环的入口时，第j个指针已经走到环上的某个位置，假设距离入口（这里指从j开始往前数的方向）有x步。那么，由于第二个指针j走的快，每次比i指针多走1步，所以当第i个指针再走x步时，第j个指针就会比第i个指针多走x步，则i和j就会相遇。</p><p>时间复杂度是： O(n)。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!head || !head-&gt;next) <span class="keyword">return</span> <span class="number">0</span>;<span class="comment">//排除head和head的下一个节点是空节点</span></span><br><span class="line">        ListNode *i = head, *j = i-&gt;next;<span class="comment">//初始化两个节点，一个指向head，一个指向head的下一个节点</span></span><br><span class="line">        <span class="keyword">while</span> (i &amp;&amp; j)<span class="comment">//当两个指针不指向空时，继续循环</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (i == j) <span class="keyword">return</span> <span class="literal">true</span>;<span class="comment">//若i和j相遇，说明存在环，返回true</span></span><br><span class="line">            i = i-&gt;next;<span class="comment">//否则继续next</span></span><br><span class="line">            j = j-&gt;next;<span class="comment">//否则继续next</span></span><br><span class="line">            <span class="keyword">if</span> (j) j = j-&gt;next;<span class="comment">//此时，i已经走了一步，j也已经走了一步，下一步要判断j是否到了链表的末尾，也就是null，如果不是才存在next节点</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 140 —— 单词拆分II（二百三十）</title>
       <link href="2021/09/01/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-140-%E2%80%94%E2%80%94-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86II%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%89%E5%8D%81%EF%BC%89/"/>
       <url>2021/09/01/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-140-%E2%80%94%E2%80%94-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86II%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%89%E5%8D%81%EF%BC%89/</url>
