@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>【每日算法】LeetCode 148 —— 排序链表（二百三十八）</title>
+      <link href="2021/10/04/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-148-%E2%80%94%E2%80%94-%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%89%E5%8D%81%E5%85%AB%EF%BC%89/"/>
+      <url>2021/10/04/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-148-%E2%80%94%E2%80%94-%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%89%E5%8D%81%E5%85%AB%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。</p><p>在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1：</p><p>输入：head = [4,2,1,3]<br>输出：[1,2,3,4]</p><p>示例 2：</p><p>输入：head = [-1,5,3,4,0]<br>输出：[-1,0,3,4,5]</p><p>示例 3：</p><p>输入：head = []<br>输出：[]</p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h2><p>1、链表中节点的数目在范围 [0, 5 * 10^4] 内<br>2、-10^5 &lt;= Node.val &lt;= 10^5</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>首先，题目要求使用O(n log n) 时间复杂度和O(1)的空间复杂度，因此在所有的排序算法中，只有归并排序并且按照迭代的要求进行才满足要求。</p><p>然后，思路如下：</p><p>第一次，将整个区间分成连续的若干段，每段长度是2：[a0,a1],[a2,a3],…[an−2,an−1]， 然后将每一段内排好序，小数在前，大数在后；<br>第二次，将整个区间分成连续的若干段，每段长度是4：[a0,…,a3],[a4,…,a7],…[an−4,…,an−1]，然后将每一段内排好序，这次排序可以利用之前的结果，相当于将左右两个有序的半区间合并，可以通过一次线性扫描来完成；<br>依此类推，直到每段小区间的长度大于等于 n 为止；</p><p>另外，当 n 不是2的整次幂时，每次迭代只有最后一个区间会比较特殊，长度会小一些，遍历到指针为空时需要提前结束。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//利用自底向上的归并思想，每次先归并好其中一小段，之后对两小段之间进行归并</span></span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">      <span class="comment">//求出链表长度</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> p = head; p ; p = p-&gt;next) n ++;</span><br><span class="line">        <span class="keyword">auto</span> dummy = <span class="keyword">new</span> ListNode(<span class="number">-1</span>); <span class="comment">// 虚拟头结点用于指向每一层归并的最终排好序的链表，head在排序的过程中可能会变化，因此不能用head。</span></span><br><span class="line">        dummy-&gt;next = head;</span><br><span class="line">        <span class="comment">// 要明白下面第1个和第2个for循环是什么，第1个for循环是纵向层与层之间的迭代，第2个for循环是横向每层从左往右每次2i段遍历</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i *= <span class="number">2</span> )&#123; <span class="comment">//每次归并段的长度，每次长度依次为1,2,4,8...n/2</span></span><br><span class="line">        <span class="comment">//小于n是因为等于n时说明所有元素均归并完毕，大于n时同理</span></span><br><span class="line">            <span class="keyword">auto</span> cur = dummy; <span class="comment">// 因为下面for循环第一次进入时(即每一层第一段头结点 是从第一个结点head开始的，这个第一个结点head也是会变的)，要保证 first = head, 所以这里要将 cur = dummy, 因为dummy-&gt;next =head, 能保证 first = cur-&gt;next = head </span></span><br><span class="line">            <span class="comment">// 根据把链表头结点 索引当成0 或 1 有两种写法：写法一： j = 0; j + i &lt; n;     写法二：j = 1; j + i &lt;= n;</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j + i &lt; n; j += <span class="number">2</span> * i)&#123;<span class="comment">//j代表每一段的开始，每次将两段有序段归并为一个大的有序段，故而每次+2i</span></span><br><span class="line">            <span class="comment">//必须保证每段中间序号是小于链表长度的，显然，如果大于表长，就没有元素可以归并了</span></span><br><span class="line">                <span class="keyword">auto</span> first = cur-&gt;next, second = first;<span class="comment">//p表示2i段第一段的起始点，cur是上一排好序的2i链表段的尾结点（这个起始点会变，不能用p=head），q表示2i段第二段的起始点，之后开始归并即可</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; i; k ++) second = second-&gt;next;</span><br><span class="line">                <span class="comment">//f,s用于计数第一段和第二段归并的节点个数，由于当链表长度非2的整数倍时表长会小于i,故而需要加上first &amp;&amp; second的边界判断</span></span><br><span class="line">                 <span class="keyword">int</span> f = <span class="number">0</span>, s = <span class="number">0</span>;</span><br><span class="line">                 <span class="keyword">while</span>(f &lt; i &amp;&amp; s &lt; i &amp;&amp; first &amp;&amp; second)&#123;  <span class="comment">// 加 &amp;&amp; second 是因为 第二段长度 可能不满 i</span></span><br><span class="line">                <span class="comment">// 这里可以不用 &amp;&amp; first, 因为上面 j+i&lt;=n 保证了，有第二段，所以第一段肯定存在 且 长度为i</span></span><br><span class="line">                     <span class="keyword">if</span>(first-&gt;val &lt;= second-&gt;val) cur = cur-&gt;next = first,first = first-&gt;next,f ++; <span class="comment">//等号的赋值顺序为从右到左，故而该句意思为</span></span><br><span class="line">                     <span class="comment">//cur-&gt;next = first,cur = cur-&gt;next,即将小的一点插入cur链表中</span></span><br><span class="line">                     <span class="comment">// 此处注意 归并排序 用 数组是这种形式，tmp[k ++ ] = first[i ++ ]，但是这里不能采用cur = first, cur = cur-&gt;next,这样就不对了，这是 链表实现归并排序 与数组实现归并排序不同之处，要注意,可以写成cur-&gt;next = first ，cur = first </span></span><br><span class="line">                     <span class="keyword">else</span> cur = cur-&gt;next = second,second = second-&gt;next,s++;</span><br><span class="line">                 &#125;</span><br><span class="line">                <span class="comment">//归并排序基本套路</span></span><br><span class="line">                 <span class="keyword">while</span>(f &lt; i &amp;&amp; first) cur = cur-&gt;next = first,first = first-&gt;next,f ++; <span class="comment">// 这里可以不加 &amp;&amp; first，原理同上</span></span><br><span class="line">                 <span class="keyword">while</span>(s &lt; i &amp;&amp; second) cur = cur-&gt;next = second,second = second-&gt;next,s ++;  <span class="comment">// 跳出循环时，second已经是 j+2i 下一2i链表段的新的头结点</span></span><br><span class="line">                 cur-&gt;next = second; <span class="comment">//记得把排好序的链表尾 链接 到 j+2i 下一2i链表 的表头，循环完毕后 second 为下一2i链表表头</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">return</span> dummy-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【每日算法】LeetCode 147 —— 对链表做插入排序（二百三十七）</title>
+      <link href="2021/09/28/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-147-%E2%80%94%E2%80%94-%E5%AF%B9%E9%93%BE%E8%A1%A8%E5%81%9A%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%89%E5%8D%81%E4%B8%83%EF%BC%89/"/>
+      <url>2021/09/28/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-147-%E2%80%94%E2%80%94-%E5%AF%B9%E9%93%BE%E8%A1%A8%E5%81%9A%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%89%E5%8D%81%E4%B8%83%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a><strong>题目内容</strong></h2><p>对链表进行插入排序。</p><p>插入排序的动画演示如上。从第一个元素开始，该链表可以被认为已经部分排序（用黑色表示）。<br>每次迭代时，从输入数据中移除一个元素（用红色表示），并原地将其插入到已排好序的链表中。 </p><p>插入排序算法：</p><p>1、插入排序是迭代的，每次只移动一个元素，直到所有元素可以形成一个有序的输出列表。<br>2、每次迭代中，插入排序只从输入数据中移除一个待排序的元素，找到它在序列中适当的位置，并将其插入。<br>3、重复直到所有输入数据插入完为止。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><p>示例 1：</p><p>输入: 4-&gt;2-&gt;1-&gt;3<br>输出: 1-&gt;2-&gt;3-&gt;4</p><p>示例 2：</p><p>输入: -1-&gt;5-&gt;3-&gt;4-&gt;0<br>输出: -1-&gt;0-&gt;3-&gt;4-&gt;5</p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h2><p>本题就是模拟插入排序算法即可。</p><p>具体步骤如下：</p><p>1、是用虚拟头结点，将头结点与其他节点统一处理</p><p>2、扫描原链表，对于每个节点 i，从前往后扫描结果链表，找到第一个比 i 大的节点 j，将 ji插入到 j 之前</p><p>上述扫描会扫描n次，一共n个点，所以时间复杂度为O(n^2)。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">insertionSortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode *dummy = <span class="keyword">new</span> ListNode(<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">while</span> (head)</span><br><span class="line">        &#123;</span><br><span class="line">            ListNode *next = head-&gt;next;</span><br><span class="line">            ListNode *p = dummy;</span><br><span class="line">            <span class="keyword">while</span> (p-&gt;next &amp;&amp; p-&gt;next-&gt; val &lt;= head-&gt;val) p = p-&gt;next;</span><br><span class="line"></span><br><span class="line">            head-&gt;next = p-&gt;next;</span><br><span class="line">            p-&gt;next = head;</span><br><span class="line"></span><br><span class="line">            head = next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dummy-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【每日算法】LeetCode 146 —— LRU缓存机制（二百三十六）</title>
       <link href="2021/09/19/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-146-%E2%80%94%E2%80%94-LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%89%E5%8D%81%E5%85%AD%EF%BC%89/"/>
       <url>2021/09/19/%E3%80%90%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E3%80%91LeetCode-146-%E2%80%94%E2%80%94-LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%EF%BC%88%E4%BA%8C%E7%99%BE%E4%B8%89%E5%8D%81%E5%85%AD%EF%BC%89/</url>
